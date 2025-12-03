@@ -105,7 +105,7 @@ define(['./formatter'], function (formatter) {
     strain: {
       label: 'Strain',
       field: 'strain',
-      hidden: false,
+      hidden: true,
       group: 'Type Info'
     },
     serovar: {
@@ -129,12 +129,60 @@ define(['./formatter'], function (formatter) {
     mlst: {
       label: 'MLST',
       field: 'mlst',
+      hidden: false,
+      group: 'Type Info'
+    },
+    cgmlst_id: {
+      label: 'cgMLST ID',
+      field: 'cgmlst_id',
       hidden: true,
       group: 'Type Info'
     },
-    segment: {
-      label: 'Segment',
-      field: 'segment',
+    cgmlst_hc0: {
+      label: 'cgMLST HC0',
+      field: 'cgmlst_hc0',
+      hidden: false,
+      group: 'Type Info'
+    },
+    cgmlst_hc2: {
+      label: 'cgMLST HC2',
+      field: 'cgmlst_hc2',
+      hidden: false,
+      group: 'Type Info'
+    },
+    cgmlst_hc5: {
+      label: 'cgMLST HC5',
+      field: 'cgmlst_hc5',
+      hidden: false,
+      group: 'Type Info'
+    },
+    cgmlst_hc10: {
+      label: 'cgMLST HC10',
+      field: 'cgmlst_hc10',
+      hidden: true,
+      group: 'Type Info'
+    },
+    cgmlst_hc20: {
+      label: 'cgMLST HC20',
+      field: 'cgmlst_hc20',
+      hidden: true,
+      group: 'Type Info'
+    },
+    cgmlst_hc20: {
+      label: 'cgMLST HC20',
+      field: 'cgmlst_hc20',
+      hidden: true,
+      group: 'Type Info'
+    },
+    cgmlst_hc50: {
+      label: 'cgMLST HC50',
+      field: 'cgmlst_hc50',
+      hidden: true,
+      group: 'Type Info'
+    },
+    cgmlst_hc100: {
+      label: 'cgMLST HC100',
+      field: 'cgmlst_hc100',
       hidden: true,
       group: 'Type Info'
     },
@@ -348,7 +396,7 @@ define(['./formatter'], function (formatter) {
     genome_length: {
       label: 'Size',
       field: 'genome_length',
-      hidden: false,
+      hidden: true,
       group: 'Genome Statistics'
     },
     gc_content: {
@@ -392,7 +440,7 @@ define(['./formatter'], function (formatter) {
     cds: {
       label: 'CDS',
       name: 'cds',
-      hidden: false,
+      hidden: true,
       group: 'Annotation Statistics'
     },
 
