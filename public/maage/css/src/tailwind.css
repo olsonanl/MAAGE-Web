@@ -40,19 +40,22 @@
 
   .amr-view-btn,
   .amr-sort-btn,
-  .taxonomy-view-btn {
+  .taxonomy-view-btn,
+  .cgmlst-view-btn {
     @apply bg-transparent text-gray-500;
   }
 
   .amr-view-btn:hover,
   .amr-sort-btn:hover,
-  .taxonomy-view-btn:hover {
+  .taxonomy-view-btn:hover,
+  .cgmlst-view-btn:hover {
     @apply bg-gray-200 text-gray-700;
   }
 
   .amr-view-btn.active,
   .amr-sort-btn.active,
-  .taxonomy-view-btn.active {
+  .taxonomy-view-btn.active,
+  .cgmlst-view-btn.active {
     @apply bg-white text-gray-900 shadow-sm;
   }
 }

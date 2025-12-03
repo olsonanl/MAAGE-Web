@@ -600,7 +600,8 @@ video {
 
 .amr-view-btn,
   .amr-sort-btn,
-  .taxonomy-view-btn {
+  .taxonomy-view-btn,
+  .cgmlst-view-btn {
   background-color: transparent;
   --tw-text-opacity: 1;
   color: rgb(107 114 128 / var(--tw-text-opacity, 1));
@@ -608,7 +609,8 @@ video {
 
 .amr-view-btn:hover,
   .amr-sort-btn:hover,
-  .taxonomy-view-btn:hover {
+  .taxonomy-view-btn:hover,
+  .cgmlst-view-btn:hover {
   --tw-bg-opacity: 1;
   background-color: rgb(229 231 235 / var(--tw-bg-opacity, 1));
   --tw-text-opacity: 1;
@@ -617,7 +619,8 @@ video {
 
 .amr-view-btn.active,
   .amr-sort-btn.active,
-  .taxonomy-view-btn.active {
+  .taxonomy-view-btn.active,
+  .cgmlst-view-btn.active {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity, 1));
   --tw-text-opacity: 1;
@@ -677,6 +680,10 @@ video {
 
 .top-3 {
   top: 0.75rem;
+}
+
+.z-0 {
+  z-index: 0;
 }
 
 .z-10 {
@@ -1654,6 +1661,11 @@ video {
 
 .fill-\[var\(--maage-text\)\/90\] {
   fill: var(--maage-text)/90;
+}
+
+.object-cover {
+  -o-object-fit: cover;
+     object-fit: cover;
 }
 
 .p-0\.5 {

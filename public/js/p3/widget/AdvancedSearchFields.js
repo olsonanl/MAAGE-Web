@@ -100,7 +100,7 @@ define([], function () {
         field: '----- Status -----', type: 'str', facet: false, face_hidden: true, search: true
       },
       {
-        field: 'genome_status', type: 'str', facet: true, facet_hidden: false, search: true
+        field: 'genome_status', type: 'str', facet: true, facet_hidden: true, search: true
       },
 
       {
@@ -122,7 +122,28 @@ define([], function () {
         field: 'mlst', type: 'str', facet: false, facet_hidden: true, search: true
       },
       {
-        field: 'segment', type: 'str', facet: true, facet_hidden: false, search: true
+        field: 'cgmlst_id', type: 'str', facet: false, facet_hidden: true, search: true
+      },
+      {
+        field: 'cgmlst_hc0', type: 'str', facet: true, facet_hidden: true, search: true
+      },
+      {
+        field: 'cgmlst_hc2', type: 'str', facet: true, facet_hidden: true, search: true
+      },
+      {
+        field: 'cgmlst_hc5', type: 'str', facet: true, facet_hidden: true, search: true
+      },
+      {
+        field: 'cgmlst_hc10', type: 'str', facet: true, facet_hidden: true, search: true
+      },
+      {
+        field: 'cgmlst_hc20', type: 'str', facet: true, facet_hidden: true, search: true
+      },
+      {
+        field: 'cgmlst_hc50', type: 'str', facet: true, facet_hidden: true, search: true
+      },
+      {
+        field: 'cgmlst_hc100', type: 'str', facet: true, facet_hidden: true, search: true
       },
       {
         field: 'subtype', type: 'str', facet: true, facet_hidden: false, search: true
@@ -301,7 +322,7 @@ define([], function () {
         field: 'city', type: 'str', facet: true, facet_hidden: false, search: true
       },
       {
-        field: 'geographic_group', type: 'str', facet: true, facet_hidden: false, search: true
+        field: 'geographic_group', type: 'str', facet: true, facet_hidden: true, search: true
       },
       {
         field: 'geographic_location', type: 'str', facet: false, facet_hidden: true, search: true
@@ -326,7 +347,7 @@ define([], function () {
         field: 'host_health', type: 'str', facet: false, facet_hidden: true, search: true
       },
       {
-        field: 'host_group', type: 'str', facet: true, facet_hidden: false, search: true
+        field: 'host_group', type: 'str', facet: true, facet_hidden: true, search: true
       },
       {
         field: 'lab_host', type: 'str', facet: false, facet_hidden: false, search: true
