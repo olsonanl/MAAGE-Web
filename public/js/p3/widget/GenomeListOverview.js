@@ -1009,7 +1009,7 @@ define([
 				this.serotypeOverTimeChartNode,
 				StackedBar,
 				{
-					title: "Serotype Distribution (Last 10 Years)",
+					title: "",
 					theme: "maage-muted",
 				},
 				lang.hitch(this, function (chart)
@@ -1104,7 +1104,7 @@ define([
 				this.hostChartNode,
 				Doughnut,
 				{
-					title: "Host Distribution",
+					title: "",
 					theme: "maage-muted",
 				},
 				lang.hitch(this, function (chart)
@@ -1197,7 +1197,7 @@ define([
 				this.sourceChartNode,
 				Doughnut,
 				{
-					title: "Isolation Source Distribution",
+					title: "",
 					theme: "maage-muted",
 				},
 				lang.hitch(this, function (chart)
