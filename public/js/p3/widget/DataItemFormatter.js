@@ -3118,7 +3118,7 @@ define([
           text: 'mlst',
           link: function (obj) {
             return lang.replace(
-              '<a href="/view/genomeList/?and(eq(mlst,' + obj.mlst + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
+              '<a href="/view/GenomeList/?and(eq(mlst,' + obj.mlst + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
                 obj.mlst +
               '</a>',
               { obj: obj }
@@ -3134,7 +3134,7 @@ define([
           text: 'cgmlst_hc0',
           link: function (obj) {
             return lang.replace(
-              '<a href="/view/genomeList/?and(eq(cgmlst_hc0,' + obj.cgmlst_hc0 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
+              '<a href="/view/GenomeList/?and(eq(cgmlst_hc0,' + obj.cgmlst_hc0 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
                 obj.cgmlst_hc0 +
               '</a>',
               { obj: obj }
@@ -3146,7 +3146,7 @@ define([
           text: 'cgmlst_hc2',
           link: function (obj) {
             return lang.replace(
-              '<a href="/view/genomeList/?and(eq(cgmlst_hc2,' + obj.cgmlst_hc2 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
+              '<a href="/view/GenomeList/?and(eq(cgmlst_hc2,' + obj.cgmlst_hc2 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
                 obj.cgmlst_hc2 +
               '</a>',
               { obj: obj }
@@ -3158,7 +3158,7 @@ define([
           text: 'cgmlst_hc5',
           link: function (obj) {
             return lang.replace(
-              '<a href="/view/genomeList/?and(eq(cgmlst_hc5,' + obj.cgmlst_hc5 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
+              '<a href="/view/GenomeList/?and(eq(cgmlst_hc5,' + obj.cgmlst_hc5 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
                 obj.cgmlst_hc5 +
               '</a>',
               { obj: obj }
@@ -3170,7 +3170,7 @@ define([
           text: 'cgmlst_hc10',
           link: function (obj) {
             return lang.replace(
-              '<a href="/view/genomeList/?and(eq(cgmlst_hc10,' + obj.cgmlst_hc10 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
+              '<a href="/view/GenomeList/?and(eq(cgmlst_hc10,' + obj.cgmlst_hc10 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
                 obj.cgmlst_hc10 +
               '</a>',
               { obj: obj }
@@ -3182,7 +3182,7 @@ define([
           text: 'cgmlst_hc20',
           link: function (obj) {
             return lang.replace(
-              '<a href="/view/genomeList/?and(eq(cgmlst_hc20,' + obj.cgmlst_hc20 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
+              '<a href="/view/GenomeList/?and(eq(cgmlst_hc20,' + obj.cgmlst_hc20 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
                 obj.cgmlst_hc20 +
               '</a>',
               { obj: obj }
@@ -3194,7 +3194,7 @@ define([
           text: 'cgmlst_hc50',
           link: function (obj) {
             return lang.replace(
-              '<a href="/view/genomeList/?and(eq(cgmlst_hc50,' + obj.cgmlst_hc50 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
+              '<a href="/view/GenomeList/?and(eq(cgmlst_hc50,' + obj.cgmlst_hc50 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
                 obj.cgmlst_hc50 +
               '</a>',
               { obj: obj }
@@ -3206,7 +3206,7 @@ define([
           text: 'cgmlst_hc100',
           link: function (obj) {
             return lang.replace(
-              '<a href="/view/genomeList/?and(eq(cgmlst_hc100,' + obj.cgmlst_hc100 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
+              '<a href="/view/GenomeList/?and(eq(cgmlst_hc100,' + obj.cgmlst_hc100 + '),eq(species,' + obj.species + '))#view_tab=genomes" target="_blank">' +
                 obj.cgmlst_hc100 +
               '</a>',
               { obj: obj }
