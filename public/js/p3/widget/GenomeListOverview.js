@@ -3,6 +3,7 @@ define([
 	"dojo/_base/lang",
 	"dojo/on",
 	"dojo/dom-class",
+	"dojo/topic",
 	"dijit/_WidgetBase",
 	"dijit/_WidgetsInTemplateMixin",
 	"dijit/_TemplatedMixin",
@@ -21,6 +22,7 @@ define([
 	lang,
 	on,
 	domClass,
+	Topic,
 	WidgetBase,
 	_WidgetsInTemplateMixin,
 	Templated,
@@ -46,6 +48,7 @@ define([
 		summaryWidget: null,
 		sequencingCentersChart: null,
 		taxonomyChart: null,
+		cgmlstChart: null,
 
 		postCreate: function ()
 		{
@@ -53,6 +56,7 @@ define([
 			this.genomeStore = new GenomeStore({});
 			this.amrStore = new AMRStore({});
 			this.currentTaxonomyField = "genus"; // Default to genus
+			this.currentCgmlstField = "cgmlst_hc0"; // Default to HC0
 
 			this.own(
 				on(this.genusBtn, "click", lang.hitch(this, function ()
@@ -78,6 +82,34 @@ define([
 				on(this.amrSortValueBtn, "click", lang.hitch(this, function ()
 				{
 					this.switchAMRSort("value");
+				})),
+				on(this.cgmlstHC0Btn, "click", lang.hitch(this, function ()
+				{
+					this.switchCgmlstView("cgmlst_hc0");
+				})),
+				on(this.cgmlstHC2Btn, "click", lang.hitch(this, function ()
+				{
+					this.switchCgmlstView("cgmlst_hc2");
+				})),
+				on(this.cgmlstHC5Btn, "click", lang.hitch(this, function ()
+				{
+					this.switchCgmlstView("cgmlst_hc5");
+				})),
+				on(this.cgmlstHC10Btn, "click", lang.hitch(this, function ()
+				{
+					this.switchCgmlstView("cgmlst_hc10");
+				})),
+				on(this.cgmlstHC20Btn, "click", lang.hitch(this, function ()
+				{
+					this.switchCgmlstView("cgmlst_hc20");
+				})),
+				on(this.cgmlstHC50Btn, "click", lang.hitch(this, function ()
+				{
+					this.switchCgmlstView("cgmlst_hc50");
+				})),
+				on(this.cgmlstHC100Btn, "click", lang.hitch(this, function ()
+				{
+					this.switchCgmlstView("cgmlst_hc100");
 				}))
 			);
 		},
@@ -119,6 +151,23 @@ define([
 
 			// Recreate the chart with the new field
 			this.createTaxonomyChart();
+		},
+
+		switchCgmlstView: function (field)
+		{
+			if (this.currentCgmlstField === field || !this.cgmlstChart) return;
+
+			this.currentCgmlstField = field;
+			domClass.toggle(this.cgmlstHC0Btn, "active", field === "cgmlst_hc0");
+			domClass.toggle(this.cgmlstHC2Btn, "active", field === "cgmlst_hc2");
+			domClass.toggle(this.cgmlstHC5Btn, "active", field === "cgmlst_hc5");
+			domClass.toggle(this.cgmlstHC10Btn, "active", field === "cgmlst_hc10");
+			domClass.toggle(this.cgmlstHC20Btn, "active", field === "cgmlst_hc20");
+			domClass.toggle(this.cgmlstHC50Btn, "active", field === "cgmlst_hc50");
+			domClass.toggle(this.cgmlstHC100Btn, "active", field === "cgmlst_hc100");
+
+			// Recreate the chart with the new field
+			this.createCgmlstChart();
 		},
 
 		switchAMRView: function (viewMode)
@@ -343,30 +392,11 @@ define([
 			this.createMapChart();
 			this.createSequencingCentersChart();
 			this.createTaxonomyChart();
-			createChart(
-				VerticalBar,
-				this.hostChartNode,
-				`${baseQuery}&facet((field,host_common_name),(mincount,1),(limit,10))&limit(0)`,
-				"maage-muted"
-			);
-			createChart(
-				Doughnut,
-				this.sourceChartNode,
-				`${baseQuery}&facet((field,isolation_source),(mincount,1),(limit,10))&limit(0)`,
-				"maage-muted"
-			);
-			createChart(
-				Doughnut,
-				this.serotypeChartNode,
-				`${baseQuery}&facet((field,serovar),(mincount,1),(limit,10))&limit(0)`,
-				"maage-muted"
-			);
-			createPivotChart(
-				StackedBar,
-				this.serotypeOverTimeChartNode,
-				`${baseQuery}&facet((pivot,(collection_year,serovar)),(mincount,1))&limit(0)`,
-				"maage-muted"
-			);
+			this.createCgmlstChart();
+			this.createSerotypeChart();
+			this.createSerotypeOverTimeChart();
+			this.createHostChart();
+			this.createIsolationSourceChart();
 
 			this.createYearlyCountChart();
 			this.createAMRChart();
@@ -478,6 +508,52 @@ define([
 									],
 								};
 								chart.chart.setOption(option);
+
+								// Add click handler for chart segments
+								chart.chart.on('click', lang.hitch(this, function (params)
+								{
+									if (params.componentType === 'series' && params.seriesType === 'pie')
+									{
+										const sequencingCenter = params.name;
+										
+										// Get the existing search query and preserve it
+										let existingQuery = this.state.search;
+										
+										// URL encode the sequencing center value if it contains special characters
+										let encodedCenter;
+										if (/[^a-zA-Z0-9_.-]/.test(sequencingCenter))
+										{
+											// Replace common special characters and wrap in quotes
+											const urlEncoded = sequencingCenter
+												.replace(/\//g, '%2F')
+												.replace(/:/g, '%3A')
+												.replace(/\s/g, '%20');
+											encodedCenter = `"${urlEncoded}"`;
+										}
+										else
+										{
+											encodedCenter = sequencingCenter;
+										}
+										
+										// Build the new query by appending the sequencing center filter to existing conditions
+										let newQuery;
+										if (existingQuery.startsWith('and('))
+										{
+											// If already an 'and' query, append to it
+											newQuery = existingQuery.slice(0, -1) + `,eq(sequencing_centers,${encodedCenter}))`;
+										}
+										else
+										{
+											// Wrap existing query with the new condition in an 'and'
+											newQuery = `and(${existingQuery},eq(sequencing_centers,${encodedCenter}))`;
+										}
+										
+										// Navigate to the genome list view with the combined filter
+										Topic.publish('/navigate', {
+											href: `/view/GenomeList/?${newQuery}#view_tab=genomes`
+										});
+									}
+								}));
 							}
 							chart.hideLoading();
 
@@ -579,6 +655,52 @@ define([
 									],
 								};
 								chart.chart.setOption(option);
+
+								// Add click handler for chart segments
+								chart.chart.on('click', lang.hitch(this, function (params)
+								{
+									if (params.componentType === 'series' && params.seriesType === 'pie')
+									{
+										const taxonomyValue = params.name;
+										
+										// Get the existing search query and preserve it
+										let existingQuery = this.state.search;
+										
+										// URL encode the taxonomy value if it contains special characters
+										let encodedValue;
+										if (/[^a-zA-Z0-9_.-]/.test(taxonomyValue))
+										{
+											// Replace common special characters and wrap in quotes
+											const urlEncoded = taxonomyValue
+												.replace(/\//g, '%2F')
+												.replace(/:/g, '%3A')
+												.replace(/\s/g, '%20');
+											encodedValue = `"${urlEncoded}"`;
+										}
+										else
+										{
+											encodedValue = taxonomyValue;
+										}
+										
+										// Build the new query by appending the taxonomy filter to existing conditions
+										let newQuery;
+										if (existingQuery.startsWith('and('))
+										{
+											// If already an 'and' query, append to it
+											newQuery = existingQuery.slice(0, -1) + `,eq(${field},${encodedValue}))`;
+										}
+										else
+										{
+											// Wrap existing query with the new condition in an 'and'
+											newQuery = `and(${existingQuery},eq(${field},${encodedValue}))`;
+										}
+										
+										// Navigate to the genome list view with the combined filter
+										Topic.publish('/navigate', {
+											href: `/view/GenomeList/?${newQuery}#view_tab=genomes`
+										});
+									}
+								}));
 							}
 							chart.hideLoading();
 
@@ -597,6 +719,562 @@ define([
 					);
 
 					this.taxonomyChart = chart;
+				})
+			);
+		},
+
+		createCgmlstChart: function ()
+		{
+			if (!this.cgmlstChartNode || !this.state || !this.state.search) return;
+
+			const baseQuery = this.state.search;
+			const field = this.currentCgmlstField; // Use the current cgMLST HC field
+			const query = `${baseQuery}&facet((field,${field}),(mincount,1),(limit,10))&limit(0)`;
+
+			// If we have an existing chart, destroy it
+			if (this.cgmlstChart)
+			{
+				this.cgmlstChart.destroy();
+				this.cgmlstChart = null;
+			}
+
+			// Get the display label for the field
+			const fieldLabel = field.replace('cgmlst_', '').toUpperCase();
+
+			this._createChartWhenReady(
+				this.cgmlstChartNode,
+				Doughnut,
+				{
+					title: `${fieldLabel} Distribution`,
+					theme: "maage-muted",
+				},
+				lang.hitch(this, function (chart)
+				{
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							if (res && res.facet_counts && res.facet_counts.facet_fields[field])
+							{
+								const data = this._processFacets(res.facet_counts.facet_fields[field]);
+
+								const option = {
+									tooltip: {
+										trigger: "item",
+										formatter: "{b}: {c} ({d}%)",
+									},
+									legend: {
+										type: data.length > 20 ? 'scroll' : 'plain',
+										orient: 'horizontal',
+										bottom: '5%',
+										left: 'center',
+										width: '90%',
+										data: data.map((item) => item.name),
+										itemGap: 8,
+										itemWidth: 18,
+										itemHeight: 10,
+										textStyle: {
+											fontSize: 11
+										},
+										pageButtonItemGap: 5,
+										pageButtonGap: 15,
+										pageIconSize: 12,
+										pageTextStyle: {
+											fontSize: 10
+										}
+									},
+									grid: {
+										top: '10%',
+										bottom: '25%'
+									},
+									series: [
+										{
+											name: `${fieldLabel} Distribution`,
+											type: "pie",
+											radius: ["40%", "60%"],
+											center: ['50%', '40%'],
+											avoidLabelOverlap: false,
+											label: { show: false },
+											emphasis: {
+												label: { show: true, fontSize: "14", fontWeight: "bold" },
+											},
+											labelLine: { show: false },
+											data: data,
+										},
+									],
+								};
+								chart.chart.setOption(option);
+
+								// Add click handler for chart segments
+								chart.chart.on('click', lang.hitch(this, function (params)
+								{
+									if (params.componentType === 'series' && params.seriesType === 'pie')
+									{
+										const cgmlstValue = params.name;
+										
+										// Get the existing search query and preserve it
+										let existingQuery = this.state.search;
+										
+										// Properly encode the value if it contains special characters
+										const encodedValue = /[^a-zA-Z0-9_.-]/.test(cgmlstValue) 
+											? `"${cgmlstValue}"` 
+											: cgmlstValue;
+										
+										// Build the new query by appending the cgMLST filter to existing conditions
+										let newQuery;
+										if (existingQuery.startsWith('and('))
+										{
+											// If already an 'and' query, append to it by removing the closing paren and adding new condition
+											newQuery = existingQuery.slice(0, -1) + `,eq(${field},${encodedValue}))`;
+										}
+										else
+										{
+											// Wrap existing query with the new condition in an 'and'
+											newQuery = `and(${existingQuery},eq(${field},${encodedValue}))`;
+										}
+										
+										// Navigate to the genome list view with the combined filter
+										Topic.publish('/navigate', {
+											href: `/view/GenomeList/?${newQuery}#view_tab=genomes`
+										});
+									}
+								}));
+							}
+							chart.hideLoading();
+
+							setTimeout(() =>
+							{
+								if (chart.resize)
+								{
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function ()
+						{
+							chart.hideLoading();
+						})
+					);
+
+					this.cgmlstChart = chart;
+				})
+			);
+		},
+
+		createSerotypeChart: function ()
+		{
+			if (!this.serotypeChartNode || !this.state || !this.state.search) return;
+
+			const baseQuery = this.state.search;
+			const query = `${baseQuery}&facet((field,serovar),(mincount,1),(limit,10))&limit(0)`;
+
+			this._createChartWhenReady(
+				this.serotypeChartNode,
+				Doughnut,
+				{
+					title: "Serotypes",
+					theme: "maage-muted",
+				},
+				lang.hitch(this, function (chart)
+				{
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							if (res && res.facet_counts && res.facet_counts.facet_fields.serovar)
+							{
+								const data = this._processFacets(res.facet_counts.facet_fields.serovar);
+
+								const option = {
+									tooltip: {
+										trigger: "item",
+										formatter: "{b}: {c} ({d}%)",
+									},
+									legend: {
+										type: data.length > 20 ? 'scroll' : 'plain',
+										orient: 'horizontal',
+										bottom: '5%',
+										left: 'center',
+										width: '90%',
+										data: data.map((item) => item.name),
+										itemGap: 8,
+										itemWidth: 18,
+										itemHeight: 10,
+										textStyle: {
+											fontSize: 11
+										},
+										pageButtonItemGap: 5,
+										pageButtonGap: 15,
+										pageIconSize: 12,
+										pageTextStyle: {
+											fontSize: 10
+										}
+									},
+									grid: {
+										top: '10%',
+										bottom: '25%'
+									},
+									series: [
+										{
+											name: "Serotypes",
+											type: "pie",
+											radius: ["40%", "60%"],
+											center: ['50%', '40%'],
+											avoidLabelOverlap: false,
+											label: { show: false },
+											emphasis: {
+												label: { show: true, fontSize: "14", fontWeight: "bold" },
+											},
+											labelLine: { show: false },
+											data: data,
+										},
+									],
+								};
+								chart.chart.setOption(option);
+
+								// Add click handler for chart segments
+								chart.chart.on('click', lang.hitch(this, function (params)
+								{
+									if (params.componentType === 'series' && params.seriesType === 'pie')
+									{
+										const serotype = params.name;
+										
+										// Get the existing search query and preserve it
+										let existingQuery = this.state.search;
+										
+										// URL encode the serotype value, wrapping in quotes if it contains special characters
+										let encodedSerotype;
+										if (/[^a-zA-Z0-9_.-]/.test(serotype))
+										{
+											// Replace / with %2F and : with %3A, then wrap in quotes
+											const urlEncoded = serotype.replace(/\//g, '%2F').replace(/:/g, '%3A');
+											encodedSerotype = `"${urlEncoded}"`;
+										}
+										else
+										{
+											encodedSerotype = serotype;
+										}
+										
+										// Build the new query by appending the serotype filter to existing conditions
+										let newQuery;
+										if (existingQuery.startsWith('and('))
+										{
+											// If already an 'and' query, append to it
+											newQuery = existingQuery.slice(0, -1) + `,eq(serovar,${encodedSerotype}))`;
+										}
+										else
+										{
+											// Wrap existing query with the new condition in an 'and'
+											newQuery = `and(${existingQuery},eq(serovar,${encodedSerotype}))`;
+										}
+										
+										// Navigate to the genome list view with the combined filter
+										Topic.publish('/navigate', {
+											href: `/view/GenomeList/?${newQuery}#view_tab=genomes`
+										});
+									}
+								}));
+							}
+							chart.hideLoading();
+
+							setTimeout(() =>
+							{
+								if (chart.resize)
+								{
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function ()
+						{
+							chart.hideLoading();
+						})
+					);
+
+					this.charts.push(chart);
+				})
+			);
+		},
+
+		createSerotypeOverTimeChart: function ()
+		{
+			if (!this.serotypeOverTimeChartNode || !this.state || !this.state.search) return;
+
+			const baseQuery = this.state.search;
+			const query = `${baseQuery}&facet((pivot,(collection_year,serovar)),(mincount,1))&limit(0)`;
+
+			this._createChartWhenReady(
+				this.serotypeOverTimeChartNode,
+				StackedBar,
+				{
+					title: "",
+					theme: "maage-muted",
+				},
+				lang.hitch(this, function (chart)
+				{
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							const pivotKey = "collection_year,serovar";
+							const pivotData = res.facet_counts.facet_pivot[pivotKey];
+							
+							if (pivotData)
+							{
+								const data = this._processPivotFacets(pivotData);
+								chart.updateChart(data);
+
+								// Add click handler for chart segments
+								chart.chart.on('click', lang.hitch(this, function (params)
+								{
+									// For stacked bar charts, we can get both the category (year) and series (serotype)
+									if (params.componentType === 'series')
+									{
+										const year = params.name; // collection_year
+										const serotype = params.seriesName; // serovar
+										
+										// Get the existing search query and preserve it
+										let existingQuery = this.state.search;
+										
+										// URL encode the serotype value if it contains special characters
+										let encodedSerotype;
+										if (/[^a-zA-Z0-9_.-]/.test(serotype))
+										{
+											// Replace / with %2F and : with %3A, then wrap in quotes
+											const urlEncoded = serotype.replace(/\//g, '%2F').replace(/:/g, '%3A');
+											encodedSerotype = `"${urlEncoded}"`;
+										}
+										else
+										{
+											encodedSerotype = serotype;
+										}
+										
+										// Build the new query by appending both year and serotype filters
+										let newQuery;
+										if (existingQuery.startsWith('and('))
+										{
+											// If already an 'and' query, append both conditions
+											newQuery = existingQuery.slice(0, -1) + `,eq(collection_year,${year}),eq(serovar,${encodedSerotype}))`;
+										}
+										else
+										{
+											// Wrap existing query with the new conditions in an 'and'
+											newQuery = `and(${existingQuery},eq(collection_year,${year}),eq(serovar,${encodedSerotype}))`;
+										}
+										
+										// Navigate to the genome list view with the combined filter
+										Topic.publish('/navigate', {
+											href: `/view/GenomeList/?${newQuery}#view_tab=genomes`
+										});
+									}
+								}));
+							}
+							chart.hideLoading();
+
+							setTimeout(() =>
+							{
+								if (chart.resize)
+								{
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function ()
+						{
+							chart.hideLoading();
+						})
+					);
+
+					this.charts.push(chart);
+				})
+			);
+		},
+
+		createHostChart: function ()
+		{
+			if (!this.hostChartNode || !this.state || !this.state.search) return;
+
+			const baseQuery = this.state.search;
+			const query = `${baseQuery}&facet((field,host_common_name),(mincount,1),(limit,10))&limit(0)`;
+
+			this._createChartWhenReady(
+				this.hostChartNode,
+				Doughnut,
+				{
+					title: "",
+					theme: "maage-muted",
+				},
+				lang.hitch(this, function (chart)
+				{
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							if (res && res.facet_counts && res.facet_counts.facet_fields.host_common_name)
+							{
+								const data = this._processFacets(res.facet_counts.facet_fields.host_common_name);
+								chart.updateChart(data);
+
+								// Add click handler for chart segments
+								chart.chart.on('click', lang.hitch(this, function (params)
+								{
+									if (params.componentType === 'series')
+									{
+										const hostName = params.name;
+										
+										// Get the existing search query and preserve it
+										let existingQuery = this.state.search;
+										
+										// URL encode the host name if it contains special characters
+										let encodedHost;
+										if (/[^a-zA-Z0-9_.-]/.test(hostName))
+										{
+											// Replace common special characters and wrap in quotes
+											const urlEncoded = hostName
+												.replace(/\//g, '%2F')
+												.replace(/:/g, '%3A')
+												.replace(/\s/g, '%20');
+											encodedHost = `"${urlEncoded}"`;
+										}
+										else
+										{
+											encodedHost = hostName;
+										}
+										
+										// Build the new query by appending the host filter to existing conditions
+										let newQuery;
+										if (existingQuery.startsWith('and('))
+										{
+											// If already an 'and' query, append to it
+											newQuery = existingQuery.slice(0, -1) + `,eq(host_common_name,${encodedHost}))`;
+										}
+										else
+										{
+											// Wrap existing query with the new condition in an 'and'
+											newQuery = `and(${existingQuery},eq(host_common_name,${encodedHost}))`;
+										}
+										
+										// Navigate to the genome list view with the combined filter
+										Topic.publish('/navigate', {
+											href: `/view/GenomeList/?${newQuery}#view_tab=genomes`
+										});
+									}
+								}));
+							}
+							chart.hideLoading();
+
+							setTimeout(() =>
+							{
+								if (chart.resize)
+								{
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function ()
+						{
+							chart.hideLoading();
+						})
+					);
+
+					this.charts.push(chart);
+				})
+			);
+		},
+
+		createIsolationSourceChart: function ()
+		{
+			if (!this.sourceChartNode || !this.state || !this.state.search) return;
+
+			const baseQuery = this.state.search;
+			const query = `${baseQuery}&facet((field,isolation_source),(mincount,1),(limit,10))&limit(0)`;
+
+			this._createChartWhenReady(
+				this.sourceChartNode,
+				Doughnut,
+				{
+					title: "",
+					theme: "maage-muted",
+				},
+				lang.hitch(this, function (chart)
+				{
+					const queryOptions = { headers: { Accept: "application/solr+json" } };
+
+					this.genomeStore.query(query, queryOptions).then(
+						lang.hitch(this, function (res)
+						{
+							if (res && res.facet_counts && res.facet_counts.facet_fields.isolation_source)
+							{
+								const data = this._processFacets(res.facet_counts.facet_fields.isolation_source);
+								chart.updateChart(data);
+
+								// Add click handler for chart segments
+								chart.chart.on('click', lang.hitch(this, function (params)
+								{
+									if (params.componentType === 'series')
+									{
+										const sourceName = params.name;
+										
+										// Get the existing search query and preserve it
+										let existingQuery = this.state.search;
+										
+										// URL encode the source name if it contains special characters
+										let encodedSource;
+										if (/[^a-zA-Z0-9_.-]/.test(sourceName))
+										{
+											// Replace common special characters and wrap in quotes
+											const urlEncoded = sourceName
+												.replace(/\//g, '%2F')
+												.replace(/:/g, '%3A')
+												.replace(/\s/g, '%20');
+											encodedSource = `"${urlEncoded}"`;
+										}
+										else
+										{
+											encodedSource = sourceName;
+										}
+										
+										// Build the new query by appending the source filter to existing conditions
+										let newQuery;
+										if (existingQuery.startsWith('and('))
+										{
+											// If already an 'and' query, append to it
+											newQuery = existingQuery.slice(0, -1) + `,eq(isolation_source,${encodedSource}))`;
+										}
+										else
+										{
+											// Wrap existing query with the new condition in an 'and'
+											newQuery = `and(${existingQuery},eq(isolation_source,${encodedSource}))`;
+										}
+										
+										// Navigate to the genome list view with the combined filter
+										Topic.publish('/navigate', {
+											href: `/view/GenomeList/?${newQuery}#view_tab=genomes`
+										});
+									}
+								}));
+							}
+							chart.hideLoading();
+
+							setTimeout(() =>
+							{
+								if (chart.resize)
+								{
+									chart.resize();
+								}
+							}, 50);
+						}),
+						lang.hitch(this, function ()
+						{
+							chart.hideLoading();
+						})
+					);
+
+					this.charts.push(chart);
 				})
 			);
 		},
@@ -820,6 +1498,36 @@ define([
 								chartData.sort((a, b) => parseInt(a.name) - parseInt(b.name));
 
 								chart.updateChart(chartData);
+
+								// Add click handler for chart bars
+								chart.chart.on('click', lang.hitch(this, function (params)
+								{
+									if (params.componentType === 'series')
+									{
+										const year = params.name;
+										
+										// Get the existing search query and preserve it
+										let existingQuery = this.state.search;
+										
+										// Build the new query by appending the collection year filter to existing conditions
+										let newQuery;
+										if (existingQuery.startsWith('and('))
+										{
+											// If already an 'and' query, append to it
+											newQuery = existingQuery.slice(0, -1) + `,eq(collection_year,${year}))`;
+										}
+										else
+										{
+											// Wrap existing query with the new condition in an 'and'
+											newQuery = `and(${existingQuery},eq(collection_year,${year}))`;
+										}
+										
+										// Navigate to the genome list view with the combined filter
+										Topic.publish('/navigate', {
+											href: `/view/GenomeList/?${newQuery}#view_tab=genomes`
+										});
+									}
+								}));
 							}
 							chart.hideLoading();
 
@@ -891,6 +1599,31 @@ define([
 									if (res && res.facet_counts && res.facet_counts.facet_pivot)
 									{
 										chart.updateChart(res.facet_counts);
+										
+										// Add click handler for chart bars
+										chart.chart.on('click', lang.hitch(this, function (params)
+										{
+											if (params.componentType === 'series')
+											{
+												const antibiotic = params.name;
+												const resistantPhenotype = params.seriesName;
+												
+												// Get the existing search query and preserve it
+												let existingQuery = this.state.search;
+												
+												// URL encode the antibiotic name - wrap in quotes and encode
+												const encodedAntibiotic = encodeURIComponent(`"${antibiotic.toLowerCase()}"`);
+												const encodedPhenotype = encodeURIComponent(`"${resistantPhenotype}"`);
+												
+												// Build the filter string
+												const filterString = `and(eq(antibiotic,${encodedAntibiotic}),eq(resistant_phenotype,${encodedPhenotype}))`;
+												
+												// Navigate to the genome list view with AMR phenotypes tab and filters
+												Topic.publish('/navigate', {
+													href: `/view/GenomeList/?${existingQuery}#view_tab=amr&filter=${filterString}`
+												});
+											}
+										}));
 									}
 									chart.hideLoading();
 								}),

@@ -69,6 +69,66 @@
 	</div>
 
 	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
+		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0 relative">
+			<h3 class="chart-title">cgMLST HC Distribution</h3>
+			<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
+				 data-dojo-attach-point="cgmlstControlsContainer">
+				<div class="flex gap-0.5 bg-gray-100 rounded-md p-0.5">
+					<button type="button"
+							data-dojo-attach-point="cgmlstHC0Btn"
+							class="cgmlst-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors active">
+						HC0
+					</button>
+					<button type="button"
+							data-dojo-attach-point="cgmlstHC2Btn"
+							class="cgmlst-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+						HC2
+					</button>
+					<button type="button"
+							data-dojo-attach-point="cgmlstHC5Btn"
+							class="cgmlst-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+						HC5
+					</button>
+					<button type="button"
+							data-dojo-attach-point="cgmlstHC10Btn"
+							class="cgmlst-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+						HC10
+					</button>
+					<button type="button"
+							data-dojo-attach-point="cgmlstHC20Btn"
+							class="cgmlst-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+						HC20
+					</button>
+					<button type="button"
+							data-dojo-attach-point="cgmlstHC50Btn"
+							class="cgmlst-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+						HC50
+					</button>
+					<button type="button"
+							data-dojo-attach-point="cgmlstHC100Btn"
+							class="cgmlst-view-btn px-2 py-0.5 text-xs font-medium rounded transition-colors">
+						HC100
+					</button>
+				</div>
+			</div>
+			<div data-dojo-attach-point="cgmlstChartNode"
+				 class="chart-container"></div>
+		</div>
+
+		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Serotypes</h3>
+			<div data-dojo-attach-point="serotypeChartNode"
+				 class="chart-container"></div>
+		</div>
+
+		<div class="chart-section w-full lg:w-[calc(33.333%-0.667rem)] xl:flex-1 min-w-0">
+			<h3 class="chart-title">Serotype Distribution (Last 10 Years)</h3>
+			<div data-dojo-attach-point="serotypeOverTimeChartNode"
+				 class="chart-container"></div>
+		</div>
+	</div>
+
+	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
 		<div class="chart-section w-full lg:w-[calc(66.667%-0.667rem)] xl:flex-1 min-w-0 relative">
 			<h3 class="chart-title">Antimicrobial Resistance Profile</h3>
 			<div class="absolute top-3 right-3 toggle-buttons flex gap-1"
@@ -99,20 +159,6 @@
 				</div>
 			</div>
 			<div data-dojo-attach-point="amrChartNode"
-				 class="chart-container"></div>
-		</div>
-	</div>
-
-	<div class="flex flex-wrap gap-2 sm:gap-4 mb-4 sm:mb-6">
-		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Serotypes</h3>
-			<div data-dojo-attach-point="serotypeChartNode"
-				 class="chart-container"></div>
-		</div>
-
-		<div class="chart-section w-full lg:w-[calc(50%-0.5rem)] xl:flex-1 min-w-0">
-			<h3 class="chart-title">Serotype Distribution (Last 10 Years)</h3>
-			<div data-dojo-attach-point="serotypeOverTimeChartNode"
 				 class="chart-container"></div>
 		</div>
 	</div>
