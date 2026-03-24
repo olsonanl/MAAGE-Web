@@ -1,11 +1,11 @@
 define([
   'dojo/_base/declare', 'dojo/_base/Deferred', 'dojo/request', 'dojo/_base/lang', 'dojo/topic',
   './_GenomeList', '../Phylogeny', '../../util/PathJoin', '../../store/SFVTViruses',
-  '../TaxonomyTreeGridContainer', '../TaxonomyOverview', '../../util/QueryToEnglish'
+  '../TaxonomyTreeGridContainer', '../GenomeListOverview', '../../util/QueryToEnglish'
 ], function (
   declare, Deferred, xhr, lang, Topic,
   GenomeList, Phylogeny, PathJoin, SFVTViruses,
-  TaxonomyTreeGrid, TaxonomyOverview, QueryToEnglish
+  TaxonomyTreeGrid, GenomeListOverview, QueryToEnglish
 ) {
   return declare([GenomeList], {
     params: null,
@@ -346,7 +346,7 @@ define([
     },
 
     createOverviewPanel: function () {
-      return new TaxonomyOverview({
+      return new GenomeListOverview({
         title: 'Overview',
         id: this.viewer.id + '_overview'
       });
