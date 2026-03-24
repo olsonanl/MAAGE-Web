@@ -149,7 +149,6 @@ node_repl_history
 .vscode/
 *.code-workspace
 .github/copilot-instructions.md
-.github/
 !maage-web.code-workspace
 .idea/
 .zed/
