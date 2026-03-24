@@ -326,7 +326,7 @@ define([
     },
     onSetTotalGenomes: function (attr, oldVal, newVal) {
       const genomeCount = newVal
-      this.totalCountNode.innerHTML = ` ( ${genomeCount} Genomes ) `;
+      this.totalCountNode.textContent = ` ( ${genomeCount} Genomes ) `;
 
       if (genomeCount > 500) {
         // this.getReferenceAndRepresentativeGenomes(genomeCount);
