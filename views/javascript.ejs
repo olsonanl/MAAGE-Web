@@ -1,4 +1,20 @@
 <script>
+  function toggleMenu() {
+    var navbar = document.getElementById("mobile-navbar");
+    if (navbar) {
+      navbar.classList.toggle("hidden");
+    }
+  }
+
+  function toggleSearch() {
+    var searchButton = document.querySelector('.search-icon');
+    var searchbar = document.getElementById("mobile-searchbar");
+    if (searchButton) searchButton.classList.toggle('open');
+    if (searchbar) searchbar.classList.toggle("hidden");
+  }
+</script>
+
+<script>
 dojoConfig = {
     parseOnLoad: false,
     packages: [

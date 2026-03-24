@@ -251,10 +251,22 @@
           </div>
         </div>
       </div>
+
+      <div id="p3header-search" style="width: 120px;flex-grow: 0.85;margin-right: 10px;">
+        <input style="width:100%;font-size:1em;" class="showOnLoad dijitHidden"
+               data-dojo-type="p3/widget/GlobalSearch"/>
+      </div>
+
       <div id="bv-brc-right-header">
         <div class="HideWithAuth authLinks showOnLoad dijitHidden">
           <a class="navigationLink login-btn" href="/register">Register</a>
           <a class="navigationLink register-btn" href="/login">Login</a>
+        </div>
+
+        <div id="mobile-search-icon">
+          <button class="search-icon" onclick="toggleSearch()">
+            <span class="icon-search fa-2x"></span>
+          </button>
         </div>
         <div class="showOnLoad ShowWithAuth dijitHidden">
           <div class="showOnLoad ShowWithAuth dijitHidden topMenuButtonIcon" data-dojo-type="dijit/form/DropDownButton">
@@ -282,6 +294,12 @@
             <span class="icon-bars fa-2x"></span>
           </button>
         </div>
+      </div>
+    </div>
+
+    <div id="mobile-searchbar" class="hidden">
+      <div id="mobile-search-div">
+        <input style="width:100%;font-size:1em;" data-dojo-type="p3/widget/GlobalSearch"/>
       </div>
     </div>
   </div>
