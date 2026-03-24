@@ -1380,8 +1380,8 @@ define([
 							Object.keys(data.countryData).forEach(country =>
 							{
 								data.countryMetadata[country] = {
-									genera: countryGenusData[country]?.breakdown || {},
-									hosts: countryHostData[country]?.breakdown || {}
+								genera: (countryGenusData[country] && countryGenusData[country].breakdown) || {},
+								hosts: (countryHostData[country] && countryHostData[country].breakdown) || {}
 								};
 							});
 
@@ -1405,8 +1405,8 @@ define([
 							Object.keys(data.stateData).forEach(state =>
 							{
 								data.stateMetadata[state] = {
-									genera: stateGenusData[state]?.breakdown || {},
-									hosts: stateHostData[state]?.breakdown || {}
+								genera: (stateGenusData[state] && stateGenusData[state].breakdown) || {},
+								hosts: (stateHostData[state] && stateHostData[state].breakdown) || {}
 								};
 							});
 
@@ -1429,7 +1429,7 @@ define([
 							Object.keys(data.countyData).forEach(county =>
 							{
 								data.countyMetadata[county] = {
-									genera: countyGenusData[county]?.breakdown || {}
+									genera: (countyGenusData[county] && countyGenusData[county].breakdown) || {}
 								};
 							});
 

@@ -58,7 +58,7 @@ define([
     onKeypress: function (evt) {
       const key = evt.charOrCode || evt.keyCode;
       if (key === 13) {
-        evt.preventDefault?.();
+        if (evt.preventDefault) { evt.preventDefault(); }
         this._doSearch();
       }
     },
