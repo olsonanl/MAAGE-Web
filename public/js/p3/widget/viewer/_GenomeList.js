@@ -325,8 +325,20 @@ define([
       this.viewer.addChild(this.sfvt);
     },
     onSetTotalGenomes: function (attr, oldVal, newVal) {
+      var _self = this;
       const genomeCount = newVal
       this.totalCountNode.textContent = ` ( ${genomeCount} Genomes ) `;
+
+      // Force layout recalculation to prevent overlap with tabs
+      // Use setTimeout to ensure DOM updates are complete before resize
+      setTimeout(function () {
+        if (_self.viewHeader && _self.viewHeader.resize) {
+          _self.viewHeader.resize();
+        }
+        if (_self.resize) {
+          _self.resize();
+        }
+      }, 0);
 
       if (genomeCount > 500) {
         // this.getReferenceAndRepresentativeGenomes(genomeCount);

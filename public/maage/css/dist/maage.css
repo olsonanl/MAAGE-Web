@@ -1141,10 +1141,6 @@ video {
   align-items: center;
 }
 
-.items-stretch {
-  align-items: stretch;
-}
-
 .justify-center {
   justify-content: center;
 }
@@ -2390,6 +2386,11 @@ video {
   background-color: rgb(248 237 216 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:text-\[\#4a7d93\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(74 125 147 / var(--tw-text-opacity, 1));
+}
+
 .hover\:text-\[\#4f849b\]:hover {
   --tw-text-opacity: 1;
   color: rgb(79 132 155 / var(--tw-text-opacity, 1));
@@ -2596,10 +2597,6 @@ video {
 
   .md\:grid-cols-3 {
     grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
-
-  .md\:grid-cols-\[minmax\(0\2c 3fr\)_minmax\(0\2c 1fr\)\] {
-    grid-template-columns: minmax(0,3fr) minmax(0,1fr);
   }
 
   .md\:flex-row {

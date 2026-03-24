@@ -81,11 +81,24 @@ define([
     },
 
     onSetTaxonomy: function (attr, oldVal, taxonomy) {
+      var _self = this;
       // Use DOM placement instead of innerHTML to prevent XSS
       this.queryNode.textContent = '';
       domConstruct.place(this.buildHeaderContent(taxonomy), this.queryNode);
       var taxon_header_label = 'Taxon View - ' + taxonomy.lineage.split(',').reverse()[0];
       this.perspectiveLabel = taxon_header_label;
+
+      // Force layout recalculation to prevent breadcrumb overlap with tabs
+      // Use setTimeout to ensure DOM updates are complete before resize
+      setTimeout(function () {
+        if (_self.viewHeader && _self.viewHeader.resize) {
+          _self.viewHeader.resize();
+        }
+        if (_self.resize) {
+          _self.resize();
+        }
+      }, 0);
+
       // customization for viruses only when the context is changed
       if (this.context === 'bacteria') {
         if (this.taxonomy.lineage_names.includes('Influenza A virus') || this.taxonomy.lineage_names.includes('Rhinovirus A')) {
