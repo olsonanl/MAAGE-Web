@@ -10,10 +10,11 @@
 			<div class="maage-home-container pt-[15px]">
 				<section class="max-w-maage mx-auto px-4 sm:px-6 lg:px-8 maage-home-content">
 					<div class="p-2"></div>
-					<div class="flex flex-col md:flex-row gap-8">
-						<main class="w-full md:w-3/4 space-y-6">
+					<div style="display:grid;grid-template-columns:calc(75% - 1rem) calc(25% - 1rem);gap:2rem;align-items:stretch;" class="maage-home-grid">
+						<!-- Row 1 Left: Search Data -->
+						<div class="md:col-start-1 md:row-start-1">
 							<section
-								class="bg-gradient-to-r from-maage-primary-100 to-maage-secondary-100 shadow-md rounded-lg p-6 overflow-hidden relative">
+								class="bg-gradient-to-r from-maage-primary-100 to-maage-secondary-100 shadow-md rounded-lg p-6 overflow-hidden relative h-full">
 								<div class="relative z-10 space-y-6">
 									<div>
 										<h1
@@ -52,8 +53,68 @@
 									</div>
 								</div>
 							</section>
-							<section></section>
-							<section class="bg-white shadow-md rounded-lg p-6">
+						</div>
+
+						<!-- Row 1 Right: Upcoming Events -->
+						<div class="md:col-start-2 md:row-start-1">
+							<section
+								class="bg-white p-6 rounded-xl shadow-md hover:shadow-md transition-shadow duration-300 h-full">
+								<h2
+									class="text-xl font-semibold text-maage-text/90 mb-4 font-poppins flex items-center">
+									Upcoming Events
+								</h2>
+								<div class="space-y-4" data-dojo-attach-point="eventsContainer">
+									<div class="flex gap-3 bg-maage-primary-50">
+										<div
+											class="bg-maage-primary-100 text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
+											<span class="block text-sm font-bold">APR</span>
+											<span class="block text-xl font-bold">25</span>
+										</div>
+										<div>
+											<h3 class="font-medium text-gray-800">Surveillance Webinar</h3>
+											<p class="text-sm text-gray-700">2:00 PM - 3:30 PM CT</p>
+											<a class="text-maage-secondary-600 hover:text-maage-secondary-800 text-xs font-medium mt-1 inline-block transition-colors duration-200"
+												href="#">Register</a>
+										</div>
+									</div>
+									<div class="flex gap-3">
+										<div class="text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
+											<span class="block text-sm font-bold">MAY</span>
+											<span class="block text-xl font-bold">20</span>
+										</div>
+										<div class="">
+											<h3 class="font-medium text-gray-800">H5N1 Research Update</h3>
+											<p class="text-sm text-gray-700">11:00 AM - 12:00 PM CT</p>
+											<a class="text-maage-secondary-600 hover:text-maage-secondary-800 text-xs font-medium mt-1 inline-block transition-colors duration-200"
+												href="#">Register</a>
+										</div>
+									</div>
+									<div class="flex gap-3">
+										<div class="text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
+											<span class="block text-sm font-bold">MAY</span>
+											<span class="block text-xl font-bold">25</span>
+										</div>
+										<div class="">
+											<h3 class="font-medium text-gray-800">MAAGE Workshop Series</h3>
+											<p class="text-sm text-gray-700">9:00 AM - 4:00 PM CT</p>
+											<a class="text-maage-secondary-600 hover:text-maage-secondary-800 text-xs font-medium mt-1 inline-block transition-colors duration-200"
+												href="#">Register</a>
+										</div>
+									</div>
+								</div>
+								<div class="mt-4 text-center">
+									<a href="/calendar"
+										class="inline-flex items-center justify-center rounded-lg bg-maage-secondary-500 px-8 py-2 text-sm font-medium text-white shadow hover:bg-maage-secondary-500/75 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 focus:ring-offset-2 transition">
+										View Events
+										<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
+									</a>
+								</div>
+							</section>
+						</div>
+
+						<!-- Row 2 Left: Analyze Data -->
+						<div class="md:col-start-1 md:row-start-2">
+							<section class="bg-white shadow-md rounded-lg p-6 h-full">
 								<div class="flex items-center mb-6">
 									<i data-lucide="sheet" class="h-8 w-8 text-maage-text/90 mr-2"></i>
 									<h2 class="text-2xl font-semibold text-maage-text/90 font-poppins">Analyze
@@ -459,123 +520,11 @@
 									</div>
 								</div>
 							</section>
-						</main>
-						<aside class="w-full md:w-1/4 space-y-6">
-							<!-- Quick Links section (hidden) -->
-							<section style="display:none;"
-								class="bg-white p-6 rounded-xl shadow-md hover:shadow-md transition-shadow duration-300">
-								<h2 class="text-xl font-semibold text-gray-800 mb-4 font-poppins">Quick Links</h2>
-								<div class="grid grid-cols-2 gap-3">
-									<a class="bg-maage-primary-100 hover:bg-maage-primary-200 p-3 rounded-lg text-center transition-colors duration-200"
-										href="https://www.maage-brc.org/docs/">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-											viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-											stroke-linecap="round" stroke-linejoin="round"
-											class="lucide lucide-file-text h-6 w-6 mx-auto mb-2 text-maage-primary-700">
-											<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
-											<path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
-											<path d="M10 9H8"></path>
-											<path d="M16 13H8"></path>
-											<path d="M16 17H8"></path>
-										</svg>
-										<span class="text-sm font-medium text-maage-text/85">Documentation</span>
-									</a>
-									<a class="bg-maage-secondary-50 hover:bg-maage-secondary-100 p-3 rounded-lg text-center transition-colors duration-200"
-										href="https://www.maage-brc.org/workspace/">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-											viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-											stroke-linecap="round" stroke-linejoin="round"
-											class="lucide lucide-users h-6 w-6 mx-auto mb-2 text-secondary-700">
-											<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-											<circle cx="9" cy="7" r="4"></circle>
-											<path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-											<path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
-										</svg>
-										<span class="text-sm font-medium text-maage-text/85">My Workspace</span>
-									</a>
-									<a class="bg-maage-tertiary-100 hover:bg-maage-tertiary-200 p-3 rounded-lg text-center transition-colors duration-200"
-										href="/searches">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-											viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-											stroke-linecap="round" stroke-linejoin="round"
-											class="lucide lucide-database h-6 w-6 mx-auto mb-2 text-maage-tertiary-700">
-											<ellipse cx="12" cy="5" rx="9" ry="3"></ellipse>
-											<path d="M3 5V19A9 3 0 0 0 21 19V5"></path>
-											<path d="M3 12A9 3 0 0 0 21 12"></path>
-										</svg>
-										<span class="text-sm font-medium text-maage-text/85">Adv. Search</span>
-									</a>
-									<a class="bg-maage-quaternary-100 hover:bg-maage-quaternary-200 p-3 rounded-lg text-center transition-colors duration-200"
-										href="/tools">
-										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-											viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-											stroke-linecap="round" stroke-linejoin="round"
-											class="lucide lucide-users h-6 w-6 mx-auto mb-2 text-maage-quaternary-700">
-											<path d="M6 18h8"></path>
-											<path d="M3 22h18"></path>
-											<path d="M14 22a7 7 0 1 0 0-14h-1"></path>
-											<path d="M9 14h2"></path>
-											<path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"></path>
-											<path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"></path>
-										</svg>
-										<span class="text-sm font-medium text-maage-text/85">Tools</span>
-									</a>
-								</div>
-							</section>
-							<section
-								class="bg-white p-6 rounded-xl shadow-md hover:shadow-md transition-shadow duration-300">
-								<h2
-									class="text-xl font-semibold text-maage-text/90 mb-4 font-poppins flex items-center">
-									Upcoming Events
-								</h2>
-								<div class="space-y-4">
-									<div class="flex gap-3 bg-maage-primary-50">
-										<div
-											class="bg-maage-primary-100 text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
-											<span class="block text-sm font-bold">APR</span>
-											<span class="block text-xl font-bold">25</span>
-										</div>
-										<div>
-											<h3 class="font-medium text-gray-800">Surveillance Webinar</h3>
-											<p class="text-sm text-gray-700">2:00 PM - 3:30 PM CT</p>
-											<a class="text-maage-secondary-600 hover:text-maage-secondary-800 text-xs font-medium mt-1 inline-block transition-colors duration-200"
-												href="#">Register</a>
-										</div>
-									</div>
-									<div class="flex gap-3">
-										<div class="text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
-											<span class="block text-sm font-bold">MAY</span>
-											<span class="block text-xl font-bold">20</span>
-										</div>
-										<div class="">
-											<h3 class="font-medium text-gray-800">H5N1 Research Update</h3>
-											<p class="text-sm text-gray-700">11:00 AM - 12:00 PM CT</p>
-											<a class="text-maage-secondary-600 hover:text-maage-secondary-800 text-xs font-medium mt-1 inline-block transition-colors duration-200"
-												href="#">Register</a>
-										</div>
-									</div>
-									<div class="flex gap-3">
-										<div class="text-maage-secondary-700 rounded-lg p-2 text-center min-w-[60px]">
-											<span class="block text-sm font-bold">MAY</span>
-											<span class="block text-xl font-bold">25</span>
-										</div>
-										<div class="">
-											<h3 class="font-medium text-gray-800">MAAGE Workshop Series</h3>
-											<p class="text-sm text-gray-700">9:00 AM - 4:00 PM CT</p>
-											<a class="text-maage-secondary-600 hover:text-maage-secondary-800 text-xs font-medium mt-1 inline-block transition-colors duration-200"
-												href="#">Register</a>
-										</div>
-									</div>
-								</div>
-								<div class="mt-4 text-center">
-									<a href="/calendar"
-										class="inline-flex items-center justify-center rounded-lg bg-maage-secondary-500 px-8 py-2 text-sm font-medium text-white shadow hover:bg-maage-secondary-500/75 focus:outline-none focus:ring-2 focus:ring-maage-primary-300 focus:ring-offset-2 transition">
-										View Events
-										<i data-lucide="arrow-right" class="ml-1 h-3.5 w-3.5"></i>
-									</a>
-								</div>
-							</section>
-							<section class="bg-white shadow-md rounded-lg p-6 min-h-[260px]">
+						</div>
+
+						<!-- Row 2 Right: News and Announcements -->
+						<div class="md:col-start-2 md:row-start-2">
+							<section class="bg-white shadow-md rounded-lg p-6 h-full">
 								<div class="flex items-center mb-4">
 									<h2 class="text-maage=text/90 text-xl font-semibold font-poppins">News and Announcements</h2>
 								</div>
@@ -587,48 +536,22 @@
 											<span class="mx-2">•</span>
 											<span class="">Publication</span>
 										</div>
-										<h3 class="font-medium text-[#2c3e50] mb-1">New H5N1 Surveillance Tools</h3>
+										<h3 class="font-medium mb-1"><a href="#" class="text-[#2c3e50] hover:text-[#4a7d93] hover:underline">New H5N1 Surveillance Tools</a></h3>
 										<p class="text-sm text-gray-600">MAAGE is developing a new
 											surveillance platform that enables real-time tracking of H5N1 influenza
 											variants across the
 											Midwest.</p>
-										<div class="mt-2">
-											<a class="text-[#4a7d93] text-sm flex items-center" href="#">Read
-												More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-													viewBox="0 0 24 24" fill="none" stroke="currentColor"
-													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-													class="lucide lucide-external-link h-3 w-3 ml-1">
-													<path d="M15 3h6v6"></path>
-													<path d="M10 14 21 3"></path>
-													<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6">
-													</path>
-												</svg>
-											</a>
-										</div>
 									</div>
 									<div class="hover:bg-maage-primary-50 p-1">
 										<div class="flex items-center text-sm text-gray-500 mb-1">
 											<span>MAR 05</span>
 										</div>
-										<h3 class="font-medium text-[#2c3e50] mb-1">New Research Paper on SARS-CoV-2
+										<h3 class="font-medium mb-1"><a href="#" class="text-[#2c3e50] hover:text-[#4a7d93] hover:underline">New Research Paper on SARS-CoV-2
 											Variant
-											Tracking</h3>
+											Tracking</a></h3>
 										<p class="text-sm text-gray-600">MAAGE researchers published a new paper on
 											improved
 											methods for tracking SARS-CoV-2 variants.</p>
-										<div class="mt-2">
-											<a class="text-[#4a7d93] text-sm flex items-center" href="#">Read
-												More<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-													viewBox="0 0 24 24" fill="none" stroke="currentColor"
-													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-													class="lucide lucide-external-link h-3 w-3 ml-1">
-													<path d="M15 3h6v6"></path>
-													<path d="M10 14 21 3"></path>
-													<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6">
-													</path>
-												</svg>
-											</a>
-										</div>
 									</div>
 								</div>
 								<div class="mt-4 text-center">
@@ -639,14 +562,14 @@
 									</a>
 								</div>
 							</section>
-						</aside>
+						</div>
+
 						<style>
 							.maage-home .home-card li a:hover {
 								text-decoration: underline;
 							}
 						</style>
 					</div>
-					</main>
 			</div>
 		</div>
 	</div>
