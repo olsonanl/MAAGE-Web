@@ -838,8 +838,8 @@ define([
 			return {
 				count: count,
 				value: count,
-				genera: this._formatGenera(metadata?.genera),
-				hosts: this._formatBreakdown(metadata?.hosts)
+				genera: this._formatGenera(metadata && metadata.genera),
+				hosts: this._formatBreakdown(metadata && metadata.hosts)
 			};
 		},
 
@@ -886,8 +886,8 @@ define([
 			return {
 				count: count,
 				value: count,
-				genera: this._formatGenera(metadata?.genera),
-				hosts: this._formatBreakdown(metadata?.hosts)
+				genera: this._formatGenera(metadata && metadata.genera),
+				hosts: this._formatBreakdown(metadata && metadata.hosts)
 			};
 		},
 
@@ -923,7 +923,7 @@ define([
 			return {
 				count: count,
 				value: count,
-				genera: this._formatGenera(metadata?.genera)
+				genera: this._formatGenera(metadata && metadata.genera)
 			};
 		},
 
