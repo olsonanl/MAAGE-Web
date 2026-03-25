@@ -30,12 +30,57 @@ var httpProxy = require('http-proxy');
 var apiProxy = httpProxy.createProxyServer();
 var maintenanceMode = config.get('maintenanceMode') || process.env.MAINTENANCE_MODE === 'true';
 
+// Security middleware imports
+const helmet = require('helmet');
+const rateLimit = require('express-rate-limit');
+const { sanitizeUrlPath } = require('./lib/securityUtils');
+
+// Trust the first proxy hop (reverse proxy like nginx/Apache)
+// This is required for express-rate-limit to correctly identify client IPs
+app.set('trust proxy', 1);
+
+// Rate limiters for different route types
+const problemReportLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 10, // 10 requests per window per IP
+  message: { error: 'Too many problem reports submitted. Please try again later.' },
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
+const feedLimiter = rateLimit({
+  windowMs: 1 * 60 * 1000, // 1 minute
+  max: 30, // 30 requests per minute per IP
+  message: { error: 'Too many feed requests. Please slow down.' },
+  standardHeaders: true,
+  legacyHeaders: false
+});
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 app.use(favicon(path.join(__dirname, '/public/favicon.ico')));
 app.use(logger('dev'));
 app.use(cookieParser(config.get('cookieSecret')));
+
+// Security headers with Helmet
+// CSP is disabled due to incompatibility with Dojo framework
+// Other important security headers are still applied:
+// - X-Frame-Options (prevents clickjacking)
+// - X-Content-Type-Options (prevents MIME sniffing)
+// - Strict-Transport-Security (enforces HTTPS)
+// - X-DNS-Prefetch-Control
+// - Referrer-Policy
+app.use(helmet({
+  contentSecurityPolicy: false,  // Disabled - Dojo framework incompatible
+  crossOriginEmbedderPolicy: false,  // Allow embedded content
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  hsts: {
+    maxAge: 31536000,  // 1 year in seconds
+    includeSubDomains: true,
+    preload: true
+  }
+}));
 
 const proxyConfig = config.get('proxyConfig');
 if (proxyConfig) {
@@ -58,6 +103,10 @@ app.use(function (req, res, next) {
   req.production = config.get('production') || false;
   req.productionLayers = ['p3/layer/core'];
   req.package = packageJSON;
+
+  // Sanitize originalUrl for safe use in templates (prevents XSS in canonical URLs)
+  req.safeOriginalUrl = sanitizeUrlPath(req.originalUrl || '');
+
   // var authToken = "";
   // var userProf = "";
   req.applicationOptions = {
@@ -152,10 +201,10 @@ app.use('/patric/', express.static(path.join(__dirname, 'public/patric/')));
 app.use('/maage/', express.static(path.join(__dirname, 'public/maage/')));
 app.use('/public/', express.static(path.join(__dirname, 'public/')));
 app.use('/', routes);
-app.post('/reportProblem', reportProblem);
-app.post('/notifySubmitSequence', notifySubmitSequence);
-app.use('/linkedin', linkedin);
-app.use('/google', google);
+app.post('/reportProblem', problemReportLimiter, reportProblem);
+app.post('/notifySubmitSequence', problemReportLimiter, notifySubmitSequence);
+app.use('/linkedin', feedLimiter, linkedin);
+app.use('/google', feedLimiter, google);
 app.use('/workspace', workspace);
 app.use('/content', contentViewer);
 app.use('/webpage', contentViewer);

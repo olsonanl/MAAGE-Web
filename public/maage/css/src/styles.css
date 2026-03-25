@@ -864,6 +864,8 @@ span.PerspectiveQuery > a.navigationLink:nth-child(7) {
 
 div.PerspectiveHeader > span.PerspectiveTotalCount {
   color: var(--maage-secondary-500);
+  /* Prevent layout shift by ensuring a minimum width for the loading text */
+  white-space: nowrap;
 }
 
 div#dijit_layout_TabContainer_0_tablist > div.dijitTabInner.dijitTabContent.dijitTab.dijitTabChecked.dijitChecked {
@@ -1675,6 +1677,14 @@ span#dijit_form_DropDownButton_0 > span.dijitReset.dijitInline.dijitArrowButtonI
   color: var(--maage-secondary-800);
 }
 
+.PerspectiveHeader {
+  /* Use flexbox to keep all elements on one line */
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5em;
+}
+
 .PerspectiveHeader i.fa.PerspectiveIcon {
   color: var(--maage-primary-500) !important;
 }
@@ -1682,6 +1692,8 @@ span#dijit_form_DropDownButton_0 > span.dijitReset.dijitInline.dijitArrowButtonI
 .patric .PerspectiveHeader div.PerspectiveType {
   font-size: 17px !important;
   font-weight: 500 !important;
+  /* Make the label inline within the flex container */
+  display: inline;
 }
 
 .PerspectiveHeader span.queryModel {
@@ -1707,6 +1719,7 @@ span#dijit_form_DropDownButton_0 > span.dijitReset.dijitInline.dijitArrowButtonI
 
 .PerspectiveHeader .PerspectiveTotalCount {
   color: var(--maage-secondary-700) !important;
+  white-space: nowrap;
 }
 
 div.dijitTabInner.dijitTabContent.dijitTab.dijitTabChecked.dijitChecked {

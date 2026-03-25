@@ -157,7 +157,6 @@ node_repl_history
 *.swp
 .project
 .warp
-CLAUDE.md
 CLAUDE.local.md
 .augment-guidelines
 .qodo

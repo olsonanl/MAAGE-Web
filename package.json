@@ -1,6 +1,6 @@
 {
   "name": "p3-web",
-  "version": "0.7.3",
+  "version": "0.7.7",
   "private": true,
   "scripts": {
     "start": "node ./bin/p3-web",
@@ -29,10 +29,12 @@
     "express": "~4.20.0",
     "express-formidable": "^1.2.0",
     "express-http-proxy": "^2.1.1",
+    "express-rate-limit": "^8.3.1",
     "feedparser": "^2.2.10",
     "flag-icons": "^7.2.1",
     "formidable": "^2.1.2",
     "gridstack": "^12.2.1",
+    "helmet": "^8.1.0",
     "http-proxy": "^1.18.1",
     "httpntlm": "^1.8.13",
     "jbrowse": "github:GMOD/jbrowse#759433708fe59e2c0a09e781cf93dc7ec4670461",
@@ -46,8 +48,10 @@
     "promised-io": "^0.3.6",
     "pug": "^3.0.3",
     "rql": "^0.3.3",
+    "sanitize-html": "^2.17.2",
     "serve-favicon": "^2.5.0",
     "underscore": "^1.13.6",
+    "validator": "^13.15.26",
     "webcola": "^3.4.0"
   },
   "devDependencies": {
