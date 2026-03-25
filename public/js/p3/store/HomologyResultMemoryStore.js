@@ -147,7 +147,7 @@ define([
           this.type = 'genome_sequence'
         }
 
-        WorkspaceManager.getFolderContents([this.hiddenPath], false, false, false).then(lang.hitch(this, function (paths) {
+        WorkspaceManager.getFolderContents(this.hiddenPath, false, false, false).then(lang.hitch(this, function (paths) {
 
           var filtered = paths.filter(function (f) {
             if ('path' in f && f.path.match('blast_out.json')) {
