@@ -108,7 +108,7 @@ define([
 
     },
     onSetTotalSpecialtyGenes: function (attr, oldVal, newVal) {
-      this.totalCountNode.innerHTML = ' ( ' + newVal + '  Antibiotics ) ';
+      this.totalCountNode.textContent = ' ( ' + newVal + '  Antibiotics ) ';
     },
     hideWarning: function () {
       if (this.warningPanel) {

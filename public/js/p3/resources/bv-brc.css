@@ -972,7 +972,7 @@ pre.bv-brc-code-block button:active {
   top: 45px;
   right: 0rem;
   left: 0rem;
-  background-color: var(--blue);
+  background-color: var(--maage-primary-400);
   padding: 1rem;
 }
 

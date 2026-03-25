@@ -1,8 +1,9 @@
 <div class="footer-wrapper">
     <footer class="footer">
         <div class="footer-container">
-            <div class="footer-grid">
-                <div class="footer-logo-section">
+            <div style="display:flex;flex-wrap:wrap;gap:2rem;align-items:flex-start;justify-content:space-between;">
+                <!-- Left: Logo + Version + MAAGE links -->
+                <div style="flex:0 0 180px;min-width:180px;">
                     <div class="footer-logo-container">
                         <a href="/" aria-label="MAAGE" class="footer-logo-link flex flex-row items-center">
                             <img src="/maage/img/logos/maage-logo-temp.png" alt="MAAGE Logo" class="footer-logo"
@@ -13,148 +14,57 @@
                             </div>
                         </a>
                     </div>
-                    <div class="divider mt-[8px]"></div>
-                    <div class="mt-0">
-                        <h4 class="font-inter font-semibold text-[15px] text-maage-text-white mt-0">Connect with MAAGE
-                        </h4>
-                        <div class="pt-4">
-                            <div class="flex space-x-4">
-                                <a href="https://github.com/MAAGE-BRC" aria-label="Github"
-                                    class="inline-block hover:opacity-80 transition-opacity cursor-pointer">
-                                    <img src="/maage/fontawesome/svg/github.svg" alt="GitHub Icon"
-                                        class="w-8 h-8 transform transition-transform duration-300 hover:scale-110" />
-                                </a>
-                                <a href="https://www.twitter.com/maage_brc" aria-label="Twitter"
-                                    class="inline-block hover:opacity-80 transition-opacity cursor-pointer">
-                                    <img src="/maage/fontawesome/svg/x-twitter.svg" alt="X Icon; Twitter Icon"
-                                        class="w-8 h-8 transform transition-transform duration-300 hover:scale-110" />
-                                </a>
-                                <a href="https://www.linkedin.com/company/maage-brc" aria-label="LinkedIn"
-                                    class="inline-block hover:opacity-80 transition-opacity cursor-pointer">
-                                    <img src="/maage/fontawesome/svg/linkedin.svg" alt="LinkedIn Icon"
-                                        class="w-8 h-8 transform transition-transform duration-300 hover:scale-110" />
-                                </a>
-                                <a href="mailto:help@maage-brc.org" aria-label="Email"
-                                    class="inline-block hover:opacity-80 transition-opacity cursor-pointer">
-                                    <img src="/maage/fontawesome/svg/envelope.svg" alt="Email Envelope Icon"
-                                        class="w-8 h-8 transform transition-transform duration-300 hover:scale-110" />
-                                </a>
-                            </div>
-                            <style>
-                                .footer-wrapper a:visited {
-                                    color: #f5f5f5;
-                                }
-                            </style>
-                        </div>
+                    <div class="mt-1" style="text-align:center;">
+                        <span class="font-poppins text-[13px] font-light text-white">v<%- request.package.version %></span>
+                    </div>
+
+                </div>
+
+                <!-- Center: Funding Statement -->
+                <div style="flex:1 1 400px;max-width:550px;text-align:center;margin:0 auto;">
+                    <h4 class="font-inter font-semibold text-[18px] text-maage-text-white mt-0 mb-3">Funding Statement</h4>
+                    <p class="font-poppins text-[13px] font-light text-white leading-relaxed">
+                        This project is supported by the Centers for Disease Control and Prevention (CDC) of the U.S. Department of Health and Human Services (HHS) through a financial assistance award to the Illinois Department of Public Health (IDPH). The contents are solely the responsibility of IDPH and its partners and do not necessarily represent the official views of, nor imply endorsement by, CDC/HHS or the U.S. Government.
+                    </p>
+                </div>
+
+                <!-- Right: Social Media Links -->
+                <div style="flex:0 0 260px;min-width:260px;text-align:right;">
+                    <h4 class="font-inter font-semibold text-[18px] text-maage-text-white mt-0 mb-3 whitespace-nowrap">Connect with MAAGE</h4>
+                    <div class="flex space-x-4" style="justify-content:flex-end;">
+                        <a href="https://github.com/MAAGE-BRC" aria-label="Github"
+                            class="inline-block hover:opacity-80 transition-opacity cursor-pointer">
+                            <img src="/maage/fontawesome/svg/github.svg" alt="GitHub Icon"
+                                class="w-8 h-8 transform transition-transform duration-300 hover:scale-110" />
+                        </a>
+                        <a href="https://www.twitter.com/maage_brc" aria-label="Twitter"
+                            class="inline-block hover:opacity-80 transition-opacity cursor-pointer">
+                            <img src="/maage/fontawesome/svg/x-twitter.svg" alt="X Icon; Twitter Icon"
+                                class="w-8 h-8 transform transition-transform duration-300 hover:scale-110" />
+                        </a>
+                        <a href="https://www.linkedin.com/company/maage-brc" aria-label="LinkedIn"
+                            class="inline-block hover:opacity-80 transition-opacity cursor-pointer">
+                            <img src="/maage/fontawesome/svg/linkedin.svg" alt="LinkedIn Icon"
+                                class="w-8 h-8 transform transition-transform duration-300 hover:scale-110" />
+                        </a>
+                        <a href="mailto:help@maage-brc.org" aria-label="Email"
+                            class="inline-block hover:opacity-80 transition-opacity cursor-pointer">
+                            <img src="/maage/fontawesome/svg/envelope.svg" alt="Email Envelope Icon"
+                                class="w-8 h-8 transform transition-transform duration-300 hover:scale-110" />
+                        </a>
                     </div>
                 </div>
-                <div class="footer-nav-section flex flex-col space-y-2">
-                    <h3
-                        class="footer-heading font-poppins text-[16px] font-normal text-[var(--maage-text-link-white)] mb-2">
-                        MAAGE</h3>
-                    <div class="section-divider divider-maage mb-2"></div>
-                    <ul class="flex flex-col space-y-[5px] pt-[2px]">
-                        <li>
-                            <a href="/about"
-                                class="font-poppins text-[15px] font-normal text-[var(--maage-text-link-white)] hover:underline hover:text-white transition-colors">About
-                                Us</a>
-                        </li>
-                        <li>
-                            <a href="/team"
-                                class="font-poppins text-[15px] font-normal text-[var(--maage-text-link-white)] hover:underline hover:text-white transition-colors">Our
-                                Team</a>
-                        </li>
-                        <li>
-                            <a href="/advisory-boards"
-                                class="font-poppins text-[15px] font-normal text-[var(--maage-text-link-white)] hover:underline hover:text-white transition-colors">Advisory
-                                Boards</a>
-                        </li>
-                        <li>
-                            <a class="footer-link DialogButton font-poppins text-[15px] font-normal text-[var(--maage-text-link-white)] hover:underline hover:text-white transition-colors cursor-pointer"
-                                rel="reportProblem:">Contact Us</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="footer-nav-section flex flex-col space-y-2">
-                    <h3
-                        class="footer-heading font-poppins text-lg font-normal text-[var(--maage-text-link-white)] mb-2">
-                        Help</h3>
-                    <div class="section-divider divider-maage mb-2"></div>
-                    <ul class="flex flex-col space-y-[5px] pt-[2px]">
-                        <li>
-                            <a href="https://www.maage-brc.org/docs/"
-                                class="font-poppins text-[15px] font-normal text-[var(--maage-text-link-white)] hover:underline hover:text-white transition-colors">Documentation</a>
-                        </li>
-                        <li>
-                            <a href="https://www.maage-brc.org/docs/quick_references/index.html"
-                                class="font-poppins text-[15px] font-normal text-[var(--maage-text-link-white)] hover:underline hover:text-white transition-colors">Reference
-                                Guides</a>
-                        </li>
-                        <li>
-                            <a href="https://www.maage-brc.org/docs/tutorial/index.html"
-                                class="font-poppins text-[15px] font-normal text-[var(--maage-text-link-white)] hover:underline hover:text-white transition-colors">User
-                                Tutorials</a>
-                        </li>
-                        <li>
-                            <a href="https://www.maage-brc.org/docs/videos/index.html"
-                                class="font-poppins text-[15px] font-normal text-[var(--maage-text-link-white)] hover:underline hover:text-white transition-colors">Instructional
-                                Videos</a>
-                        </li>
-                    </ul>
-                </div>
-                <div class="footer-nav-section flex flex-col space-y-2">
-                    <h3 class="footer-heading font-poppins font-normal text-[var(--maage-text-link-white)] mb-2">
-                        Resources</h3>
-                    <div class="section-divider divider-resources mb-2"></div>
-                    <ul class="flex flex-col space-y-[5px] pt-[2px]">
-
-                        <li>
-                            <a href="https://www.maage-brc.org/docs/webinar/index.html"
-                                class="font-poppins text-[15px] font-normal text-[var(--maage-text-link-white)] hover:underline hover:text-white transition-colors">Webinars</a>
-                        </li>
-                        <li>
-                            <a href="https://www.maage-brc.org/docs/workshops/index.html"
-                                class="font-poppins text-[15px] font-normal text-[var(--maage-text-link-white)] hover:underline hover:text-white transition-colors">Workshops</a>
-                        </li>
-
-                        <li>
-                            <a href="https://www.maage-brc.org/docs/system_documentation/system_architecture.html"
-                                class="font-poppins text-[15px] font-normal text-[var(--maage-text-link-white)] hover:underline hover:text-white transition-colors">System
-                                Architecture</a>
-                        </li>
-                        <li>
-                            <a href="/privacy-policy"
-                                class="font-poppins text-[15px] font-normal text-[var(--maage-text-link-white)] hover:underline hover:text-white transition-colors">Privacy
-                                Policy</a>
-                        </li>
-                    </ul>
-                </div>
-                <style>
-                    .footer-nav-section a:visited {
-                        color: var(--maage-text-link-white);
-                    }
-                </style>
             </div>
+            <style>
+                .footer-wrapper a:visited {
+                    color: #f5f5f5;
+                }
+                .footer-nav-section a,
+                .footer-nav-section a:visited,
+                .footer-nav-section a:active {
+                    color: #f5f5f5 !important;
+                }
+            </style>
         </div>
     </footer>
-
-    <div class="footer-cap">
-        <div class="footer-cap-content">
-            <span class="footer-cap-text font-poppins text-md font-light">MAAGE v<%- request.package.version %></span>
-            <span class="footer-cap-divider font-inter text-md font-bold">|</span>
-            <a href="/sitemap.xml"
-                class="font-poppins text-md font-light text-maage-text-white hover:underline">sitemap</a>
-        </div>
-    </div>
-    <style>
-        .footer-nav-section a,
-        .footer-nav-section a:visited,
-        .footer-nav-section a:active {
-            color: #f5f5f5 !important;
-        }
-
-        .footer-heading {
-            font-size: 16px !important;
-        }
-    </style>
 </div>

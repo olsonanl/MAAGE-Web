@@ -821,10 +821,6 @@ video {
   margin-top: 10px;
 }
 
-.mt-\[8px\] {
-  margin-top: 8px;
-}
-
 .line-clamp-2 {
   overflow: hidden;
   display: -webkit-box;
@@ -854,6 +850,10 @@ video {
 
 .grid {
   display: grid;
+}
+
+.contents {
+  display: contents;
 }
 
 .hidden {
@@ -1223,12 +1223,6 @@ video {
   --tw-space-y-reverse: 0;
   margin-top: calc(1.5rem * calc(1 - var(--tw-space-y-reverse)));
   margin-bottom: calc(1.5rem * var(--tw-space-y-reverse));
-}
-
-.space-y-\[5px\] > :not([hidden]) ~ :not([hidden]) {
-  --tw-space-y-reverse: 0;
-  margin-top: calc(5px * calc(1 - var(--tw-space-y-reverse)));
-  margin-bottom: calc(5px * var(--tw-space-y-reverse));
 }
 
 .overflow-auto {
@@ -1815,10 +1809,6 @@ video {
   padding-top: 15vh;
 }
 
-.pt-\[2px\] {
-  padding-top: 2px;
-}
-
 .text-left {
   text-align: left;
 }
@@ -1871,16 +1861,16 @@ video {
   line-height: 1;
 }
 
-.text-\[15px\] {
-  font-size: 15px;
+.text-\[13px\] {
+  font-size: 13px;
 }
 
 .text-\[15rem\] {
   font-size: 15rem;
 }
 
-.text-\[16px\] {
-  font-size: 16px;
+.text-\[18px\] {
+  font-size: 18px;
 }
 
 .text-\[42px\] {
@@ -2034,10 +2024,6 @@ video {
 
 .text-\[var\(--maage-secondary-800\)\] {
   color: var(--maage-secondary-800);
-}
-
-.text-\[var\(--maage-text-link-white\)\] {
-  color: var(--maage-text-link-white);
 }
 
 .text-blue-700 {
@@ -2400,6 +2386,11 @@ video {
   background-color: rgb(248 237 216 / var(--tw-bg-opacity, 1));
 }
 
+.hover\:text-\[\#4a7d93\]:hover {
+  --tw-text-opacity: 1;
+  color: rgb(74 125 147 / var(--tw-text-opacity, 1));
+}
+
 .hover\:text-\[\#4f849b\]:hover {
   --tw-text-opacity: 1;
   color: rgb(79 132 155 / var(--tw-text-opacity, 1));
@@ -2434,11 +2425,6 @@ video {
 
 .hover\:text-maage-tertiary-500\/80:hover {
   color: rgb(231 199 136 / 0.8);
-}
-
-.hover\:text-white:hover {
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity, 1));
 }
 
 .hover\:underline:hover {
@@ -2569,6 +2555,22 @@ video {
 }
 
 @media (min-width: 768px) {
+  .md\:col-start-1 {
+    grid-column-start: 1;
+  }
+
+  .md\:col-start-2 {
+    grid-column-start: 2;
+  }
+
+  .md\:row-start-1 {
+    grid-row-start: 1;
+  }
+
+  .md\:row-start-2 {
+    grid-row-start: 2;
+  }
+
   .md\:w-1\/4 {
     width: 25%;
   }
@@ -2643,10 +2645,6 @@ video {
 
   .lg\:w-\[calc\(33\.333\%-0\.667rem\)\] {
     width: calc(33.333% - 0.667rem);
-  }
-
-  .lg\:w-\[calc\(50\%-0\.5rem\)\] {
-    width: calc(50% - 0.5rem);
   }
 
   .lg\:w-\[calc\(66\.667\%-0\.667rem\)\] {

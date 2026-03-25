@@ -98,7 +98,7 @@ define([
       this.viewer.addChild(this.taxons);
     },
     onSetTotalTaxons: function (attr, oldVal, newVal) {
-      this.totalCountNode.innerHTML = ' ( ' + newVal + ' Taxa ) ';
+      this.totalCountNode.textContent = ' ( ' + newVal + ' Taxa ) ';
     },
     hideWarning: function () {
       if (this.warningPanel) {

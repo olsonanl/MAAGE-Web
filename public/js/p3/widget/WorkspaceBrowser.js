@@ -158,7 +158,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/view/PathwayService' + path, target: 'blank' });
+          Topic.publish('/navigate', { href: '/view/PathwayService' + encodePath(path), target: 'blank' });
         } else {
           console.log('Error: could not find pathways data file');
         }
@@ -177,7 +177,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/view/ProteinFamiliesService' + path, target: 'blank' });
+          Topic.publish('/navigate', { href: '/view/ProteinFamiliesService' + encodePath(path), target: 'blank' });
         } else {
           console.log('Error: could not find pathways data file');
         }
@@ -196,7 +196,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/view/SubsystemService' + path, target: 'blank' });
+          Topic.publish('/navigate', { href: '/view/SubsystemService' + encodePath(path), target: 'blank' });
         } else {
           console.log('Error: could not find pathways data file');
         }
@@ -700,7 +700,7 @@ define([
       }, function (selection) {
         var sel = selection[0],
           path = sel.path + '.' + sel.name + '/TaxonomicReport.html';
-        Topic.publish('/navigate', { href: '/workspace' + path });
+        Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
       }, false);
 
       this.browserHeader.addAction('ViewGenomeAlignment', 'fa icon-eye fa-2x', {
@@ -896,7 +896,7 @@ define([
         console.log('self.actionPanel.currentContainerWidget.containerType', self.actionPanel.currentContainerWidget.containerType);
         console.log('self.browserHeader', self.browserHeader);
         var path = self.actionPanel.currentContainerWidget.getReportPath();
-        Topic.publish('/navigate', { href: '/workspace' + path });
+        Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
       }, false);
 
       this.browserHeader.addAction('ViewCGASarsFullGenomeReport', 'fa icon-eye fa-2x', {
@@ -913,7 +913,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/workspace' + path });
+          Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
         } else {
           console.log('Error: could not find FullGenomeReport.html');
         }
@@ -938,7 +938,7 @@ define([
             })
           );
           if (path) {
-            Topic.publish("/navigate", { href: "/workspace" + path });
+            Topic.publish("/navigate", { href: "/workspace" + encodePath(path) });
           } else {
             console.log("Error: could not find DockingReport.html");
           }
@@ -990,7 +990,7 @@ define([
               }
             }));
             if (path) {
-              Topic.publish('/navigate', { href: '/workspace' + path });
+              Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
             } else {
               console.log('Error: could not find ', pipeline, ' report');
             }
@@ -1029,7 +1029,7 @@ define([
             }
           }));
           if (path) {
-            Topic.publish('/navigate', { href: '/workspace' + path });
+            Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
           } else {
             console.log('Error: could not find ', pipeline, ' report');
           }
@@ -1050,7 +1050,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/workspace' + path });
+          Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
         } else {
           console.log('Error: could not find BinningReport.html');
         }
@@ -1070,7 +1070,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/workspace' + path });
+          Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
         } else {
           console.log('Error: could not find MetagenomicReadMappingReport.html');
         }
@@ -1090,7 +1090,7 @@ define([
           }
         }));
         if (path) {
-          Topic.publish('/navigate', { href: '/workspace' + path });
+          Topic.publish('/navigate', { href: '/workspace' + encodePath(path) });
         } else {
           console.log('Error: could not find Primer Design report');
         }
