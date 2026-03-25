@@ -1,11 +1,11 @@
 define([
-  'dojo/_base/declare', './GridContainer', 'dojo/on',
+  'dojo/_base/declare', './GridContainer', 'dojo/on', 'dojo/dom-construct',
   './CorrelatedGenesGrid', 'dijit/popup', 'dojo/topic',
   'dijit/TooltipDialog', './FacetFilterPanel', './CorrelatedGenesActionBar',
   'dojo/_base/lang'
 
 ], function (
-  declare, GridContainer, on,
+  declare, GridContainer, on, domConstruct,
   CorrelatedGenesGrid, popup, Topic,
   TooltipDialog, FacetFilterPanel, ContainerActionBar,
   lang
@@ -35,7 +35,32 @@ define([
     var currentQuery = self.actionPanel.currentContainerWidget.get('query');
     console.log('selection: ', selection);
     console.log('DownloadQuery: ', dataType, currentQuery);
-    window.open('/api/' + dataType + '/' + currentQuery + '&http_authorization=' + encodeURIComponent(window.App.authorizationToken) + '&http_accept=' + rel + '&http_download');
+
+    var baseUrl = '/api/' + dataType + '/?http_accept=' + rel + '&http_download=true';
+
+    var form = domConstruct.create('form', {
+      style: 'display: none;',
+      id: 'downloadForm',
+      enctype: 'application/x-www-form-urlencoded',
+      name: 'downloadForm',
+      method: 'post',
+      action: baseUrl
+    }, document.body);
+    domConstruct.create('input', {
+      type: 'hidden',
+      value: encodeURIComponent(currentQuery),
+      name: 'rql'
+    }, form);
+    // Add authorization as form field for POST requests
+    if (window.App.authorizationToken) {
+      domConstruct.create('input', {
+        type: 'hidden',
+        value: window.App.authorizationToken,
+        name: 'http_authorization'
+      }, form);
+    }
+    form.submit();
+
     popup.close(downloadTT);
   });
 

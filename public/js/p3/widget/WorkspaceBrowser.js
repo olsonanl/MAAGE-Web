@@ -574,7 +574,31 @@ define([
         var dataType = (self.actionPanel.currentContainerWidget.containerType == 'genome_group') ? 'genome' : 'genome_feature';
         var currentQuery = self.actionPanel.currentContainerWidget.get('query');
 
-        window.open(window.App.dataServiceURL + '/' + dataType + '/' + currentQuery + '&http_authorization=' + encodeURIComponent(window.App.authorizationToken) + '&http_accept=' + rel + '&http_download=true');
+        var baseUrl = window.App.dataServiceURL + '/' + dataType + '/?http_accept=' + rel + '&http_download=true';
+
+        var form = domConstruct.create('form', {
+          style: 'display: none;',
+          id: 'downloadForm',
+          enctype: 'application/x-www-form-urlencoded',
+          name: 'downloadForm',
+          method: 'post',
+          action: baseUrl
+        }, document.body);
+        domConstruct.create('input', {
+          type: 'hidden',
+          value: encodeURIComponent(currentQuery),
+          name: 'rql'
+        }, form);
+        // Add authorization as form field for POST requests
+        if (window.App.authorizationToken) {
+          domConstruct.create('input', {
+            type: 'hidden',
+            value: window.App.authorizationToken,
+            name: 'http_authorization'
+          }, form);
+        }
+        form.submit();
+
         popup.close(downloadTT);
       });
 
@@ -609,14 +633,36 @@ define([
         var dataType = type === 'genome_group' ? 'genome' : 'genome_feature';
         var currentQuery = self.getQuery(selection[0]);
 
-        var urlStr = window.App.dataServiceURL + '/' + dataType + '/' + currentQuery + '&http_authorization=' +
-          encodeURIComponent(window.App.authorizationToken) + '&http_accept=' + rel + '&limit(25000)&http_download=true';
-
         // cursorMark requires a sort on an unique key
-        urlStr += type === 'genome_group' ? '&sort(+genome_id)' : '&sort(+feature_id)';
+        var sortField = type === 'genome_group' ? 'genome_id' : 'feature_id';
+        var query = currentQuery + '&limit(25000)&sort(+' + sortField + ')';
 
-        window.open(urlStr);
-        popup.close(downloadTT);
+        var baseUrl = window.App.dataServiceURL + '/' + dataType + '/?http_accept=' + rel + '&http_download=true';
+
+        var form = domConstruct.create('form', {
+          style: 'display: none;',
+          id: 'downloadForm',
+          enctype: 'application/x-www-form-urlencoded',
+          name: 'downloadForm',
+          method: 'post',
+          action: baseUrl
+        }, document.body);
+        domConstruct.create('input', {
+          type: 'hidden',
+          value: encodeURIComponent(query),
+          name: 'rql'
+        }, form);
+        // Add authorization as form field for POST requests
+        if (window.App.authorizationToken) {
+          domConstruct.create('input', {
+            type: 'hidden',
+            value: window.App.authorizationToken,
+            name: 'http_authorization'
+          }, form);
+        }
+        form.submit();
+
+        popup.close(downloadTTSelect);
       });
 
       this.actionPanel.addAction('SelectDownloadTable', 'fa icon-download fa-2x', {
