@@ -1,7 +1,7 @@
 define(
-  ['dijit/popup', 'dijit/TooltipDialog', 'dojo/on'],
+  ['dijit/popup', 'dijit/TooltipDialog', 'dojo/on', 'dojo/dom-construct'],
 
-  function (popup, TooltipDialog, on) {
+  function (popup, TooltipDialog, on, domConstruct) {
 
     return function (options) {
 
@@ -34,12 +34,33 @@ define(
             var dataType = options.dataType;
             var currentQuery = options.getQuery();
             console.log('DownloadQuery: ', currentQuery);
-            var url = window.App.dataAPI + dataType + '/?' + currentQuery + '&sort(+' + options.primaryKey + ')&limit(' + options.limit + ')&http_accept=' + rel + '&http_download=true';
-            if (window.App.authorizationToken) {
-              url = url + '&http_authorization=' + encodeURIComponent(window.App.authorizationToken);
-            }
+            var query = currentQuery + '&sort(+' + options.primaryKey + ')&limit(' + options.limit + ')';
 
-            window.open(url);
+            var baseUrl = window.App.dataAPI + dataType + '/?http_accept=' + rel + '&http_download=true';
+
+            var form = domConstruct.create('form', {
+              style: 'display: none;',
+              id: 'downloadForm',
+              enctype: 'application/x-www-form-urlencoded',
+              name: 'downloadForm',
+              method: 'post',
+              action: baseUrl
+            }, document.body);
+            domConstruct.create('input', {
+              type: 'hidden',
+              value: encodeURIComponent(query),
+              name: 'rql'
+            }, form);
+            // Add authorization as form field for POST requests
+            if (window.App.authorizationToken) {
+              domConstruct.create('input', {
+                type: 'hidden',
+                value: window.App.authorizationToken,
+                name: 'http_authorization'
+              }, form);
+            }
+            form.submit();
+
             popup.close(downloadTT);
           });
 

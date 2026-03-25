@@ -109,10 +109,6 @@ define([
 
         baseUrl = baseUrl + '?&http_download=true&http_accept=' + accept;
 
-        if (window.App.authorizationToken) {
-          baseUrl = baseUrl + '&http_authorization=' + encodeURIComponent(window.App.authorizationToken);
-        }
-
         var form = domConstruct.create('form', {
           style: 'display: none;',
           id: 'downloadForm',
@@ -122,6 +118,10 @@ define([
           action: baseUrl
         }, this.domNode);
         domConstruct.create('input', { type: 'hidden', value: encodeURIComponent(query), name: 'rql' }, form);
+        // Add authorization as form field for POST requests
+        if (window.App.authorizationToken) {
+          domConstruct.create('input', { type: 'hidden', value: window.App.authorizationToken, name: 'http_authorization' }, form);
+        }
         form.submit();
       }
     },

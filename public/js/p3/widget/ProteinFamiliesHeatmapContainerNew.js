@@ -676,7 +676,31 @@ define([
           return f.feature_id;
         }).join(',') + '))&sort(+feature_id)';
 
-        window.open(window.App.dataServiceURL + '/genome_feature/' + currentQuery + '&http_authorization=' + encodeURIComponent(window.App.authorizationToken) + '&http_accept=' + rel + '&http_download=true');
+        var baseUrl = window.App.dataServiceURL + '/genome_feature/?http_accept=' + rel + '&http_download=true';
+
+        var form = domConstruct.create('form', {
+          style: 'display: none;',
+          id: 'downloadForm',
+          enctype: 'application/x-www-form-urlencoded',
+          name: 'downloadForm',
+          method: 'post',
+          action: baseUrl
+        }, document.body);
+        domConstruct.create('input', {
+          type: 'hidden',
+          value: encodeURIComponent(currentQuery),
+          name: 'rql'
+        }, form);
+        // Add authorization as form field for POST requests
+        if (window.App.authorizationToken) {
+          domConstruct.create('input', {
+            type: 'hidden',
+            value: window.App.authorizationToken,
+            name: 'http_authorization'
+          }, form);
+        }
+        form.submit();
+
         popup.close(downloadPT);
       });
 

@@ -49,9 +49,6 @@ define([
         const query = 'in(feature_id,(' + featureIds.map(f => f.feature_id).join(',') + '))&sort(+feature_id)&limit(100000)';
 
         baseUrl = baseUrl + '?&http_download=true&http_accept=application/protein+fasta';
-        if (window.App.authorizationToken) {
-          baseUrl = baseUrl + '&http_authorization=' + encodeURIComponent(window.App.authorizationToken);
-        }
 
         let form = domConstruct.create('form', {
           style: 'display: none;',
@@ -62,6 +59,10 @@ define([
           action: baseUrl
         }, dojoQuery('body')[0]);
         domConstruct.create('input', {type: 'hidden', value: encodeURIComponent(query), name: 'rql'}, form);
+        // Add authorization as form field for POST requests
+        if (window.App.authorizationToken) {
+          domConstruct.create('input', {type: 'hidden', value: window.App.authorizationToken, name: 'http_authorization'}, form);
+        }
         form.submit();
       }));
     } else {
