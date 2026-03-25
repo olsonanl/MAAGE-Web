@@ -271,16 +271,23 @@ define([
 
     onSetState: function (attr, oldVal, state) {
       this.loading = true;
-      var fileCheck = this.state.pathname.match(/path=..+?(?=&|$)/);
-      var objPath = fileCheck[0].split('=')[1];
+      var fileCheck = this.state.pathname.match(/path=([^&]+)/);
+      if (!fileCheck) {
+        this.showError('No path specified in URL');
+        return;
+      }
+      var objPath = decodeURIComponent(fileCheck[1]);
+      // Normalize path: remove duplicate slashes
+      objPath = objPath.replace(/\/+/g, '/');
       var objPathNwk = objPath.replace('.afa', '_fasttree.nwk');
 
       this.path = objPath;
+      console.log('WorkspaceManager objPath', objPath);
       console.log('WorkspaceManager objPathNwk', objPathNwk);
       console.log('state.path', state.path);
 
-      var typeCheck = this.state.pathname.match(/alignType=..+?(?=&|$)/);
-      if (typeCheck && typeCheck[0].split('=')[1].includes('dna')) {
+      var typeCheck = this.state.pathname.match(/alignType=([^&]+)/);
+      if (typeCheck && decodeURIComponent(typeCheck[1]).includes('dna')) {
         this.alignType = 'dna';
       }
       WorkspaceManager.getObjects([objPath]).then(lang.hitch(this, function (objs) {
@@ -1335,8 +1342,10 @@ define([
 
     postCreate: function () {
       this.inherited(arguments);
-      var fileCheck = this.state.pathname.match(/path=..+?(?=&|$)/);
-      var objPath = fileCheck[0].split('=')[1];
+      var fileCheck = this.state.pathname.match(/path=([^&]+)/);
+      var objPath = decodeURIComponent(fileCheck[1]);
+      // Normalize path: remove duplicate slashes
+      objPath = objPath.replace(/\/+/g, '/');
       var folder = objPath.split('/').slice(0, -1).join('/');
       // console.log('postCreate: objPath', objPath);
       console.log('postCreate: this.state.pathname', this.state.pathname);

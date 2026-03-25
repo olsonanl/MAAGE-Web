@@ -16,7 +16,7 @@ define([
       var parts = state.pathname.split('/');
       var type = 'dna';
       if (parts && (parts.length > 2) && parts[parts.length - 2]) {
-        type = parts[parts.length - 2];
+        type = decodeURIComponent(parts[parts.length - 2]);
       }
 
       if (!state.search) {

@@ -74,8 +74,10 @@ define([
       }
       this.inherited(arguments);
 
-      var fileCheck = this.state.href.match(/wsTreeFile=..+?(?=&|$)/);
-      var objPath = fileCheck[0].split('=')[1];
+      var fileCheck = this.state.href.match(/wsTreeFile=([^&]+)/);
+      var objPath = decodeURIComponent(fileCheck[1]);
+      // Normalize path: remove duplicate slashes
+      objPath = objPath.replace(/\/+/g, '/');
       // var folder = objPath.split('/').slice(0, -1).join('/');
       // console.log('postCreate: objPath', objPath);
       console.log('postCreate: this.state', this.state);

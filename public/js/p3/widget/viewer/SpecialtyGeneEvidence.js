@@ -25,8 +25,9 @@ define([
     _setStateAttr: function (state) {
       this.state = this.state || {};
       var parts = state.pathname.split('/');
-      this.set('source_id', parts[parts.length - 1]);
-      state.source_id = parts[parts.length - 1];
+      var source_id = decodeURIComponent(parts[parts.length - 1]);
+      this.set('source_id', source_id);
+      state.source_id = source_id;
       this.source_id = state.source_id;
       if (state.evidence) {
         this.set('evidence', state.evidence);
@@ -49,8 +50,9 @@ define([
       // console.log("GenomeList onSetState()  OLD: ", oldVal, " NEW: ", state);
 
       var parts = state.pathname.split('/');
-      this.set('source_id', parts[parts.length - 1]);
-      state.source_id = parts[parts.length - 1];
+      var source_id = decodeURIComponent(parts[parts.length - 1]);
+      this.set('source_id', source_id);
+      state.source_id = source_id;
       if (!state) {
         return;
       }
