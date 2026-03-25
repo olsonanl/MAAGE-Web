@@ -1,0 +1,395 @@
+<form dojoAttachPoint="containerNode" class="PanelForm App ${baseClass}" dojoAttachEvent="onsubmit:onSubmit" style="padding-top: 80px;">
+  <!-- Container to constrain width -->
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <!-- Breadcrumb -->
+    <div class="mb-6">
+      <nav class="text-sm text-gray-600">
+        <a href="/app/Home" class="hover:text-maage-secondary-600">Home</a>
+        <span class="mx-2">›</span>
+        <a href="/searches" class="hover:text-maage-secondary-600">Searches</a>
+        <span class="mx-2">›</span>
+        <span class="text-gray-900">AMR Phenotype Search</span>
+      </nav>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+      
+      <!-- Left Column - Search Form (3/4 width) -->
+      <div class="lg:col-span-3">
+        
+        <!-- Page Header -->
+        <div class="flex items-center justify-between mb-6">
+          <div class="flex items-center">
+            <div class="w-8 h-8 bg-maage-secondary-100 rounded-lg flex items-center justify-center mr-3">
+              <svg class="w-5 h-5 text-maage-secondary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
+              </svg>
+            </div>
+            <h1 class="text-2xl font-heading font-semibold text-gray-900">${searchAppName}</h1>
+          </div>
+          <button type="button" class="text-maage-secondary-600 hover:text-maage-secondary-700 flex items-center text-sm">
+            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Help
+          </button>
+        </div>
+
+        <!-- Description -->
+        <p class="text-gray-600 mb-8">
+          Search for antimicrobial resistance (AMR) phenotype data associated with microbial genomes using antibiotic, resistant phenotype, evidence, and various genome metadata attributes.
+        </p>
+
+        <!-- Search Criteria Section -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <h2 class="text-lg font-heading font-medium text-gray-900 mb-6">Search Criteria</h2>
+          
+          <!-- Keyword Field -->
+          <div class="mb-6">
+            <label class="block text-sm font-medium text-gray-700 mb-2">Keyword</label>
+            <div class="relative">
+              <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <svg class="h-5 w-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+                </svg>
+              </div>
+              <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                   data-dojo-props="placeHolder:'Search by any term (e.g., Influenza, genome name)'" 
+                   data-dojo-attach-point="keywordNode" 
+                   name="keyword" 
+                   class="pl-10"></div>
+            </div>
+          </div>
+
+          <!-- Two-column layout for Pathogen Group and Taxon Name -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Pathogen Group -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Pathogen Group</label>
+              <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                   data-dojo-props="placeHolder:'e.g., Influenza A virus'" 
+                   data-dojo-attach-point="pathogenGroupNode" 
+                   data-dojo-attach-event="onChange:onPathogenGroupChange"
+                   name="pathogen_group"></div>
+            </div>
+
+            <!-- Taxon Name -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Taxon Name</label>
+              <div data-dojo-type="p3/widget/maage/MAAGETaxonNameSelector" 
+                   data-dojo-props="placeHolder:'e.g., Influenza A virus'" 
+                   data-dojo-attach-point="taxonNameNode" 
+                   name="taxon_name"></div>
+            </div>
+          </div>
+
+          <!-- Two-column layout for Genome ID and Name -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <!-- Genome ID -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Genome ID</label>
+              <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                   data-dojo-props="placeHolder:'e.g., 1332244.20'" 
+                   data-dojo-attach-point="genomeIDNode" 
+                   name="genomeID"></div>
+            </div>
+
+            <!-- Genome Name -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Genome Name</label>
+              <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                   data-dojo-props="placeHolder:'e.g., Influenza A virus genome'" 
+                   data-dojo-attach-point="genomeNameNode" 
+                   name="genomeName"></div>
+            </div>
+          </div>
+
+          <!-- Host Information Section -->
+          <div class="border-t border-gray-200 pt-6 mb-6">
+            <h3 class="text-md font-medium text-gray-700 mb-4">Host Information</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <!-- Host Group -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Host Group</label>
+                <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                     data-dojo-props="placeHolder:'e.g., Human'" 
+                     data-dojo-attach-point="hostGroupNode" 
+                     name="host_group"></div>
+              </div>
+
+              <!-- Host Name -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Host Name</label>
+                <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                     data-dojo-props="placeHolder:'e.g., Homo sapiens'" 
+                     data-dojo-attach-point="hostNameNode" 
+                     name="host_name"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Geographic Information Section -->
+          <div class="border-t border-gray-200 pt-6 mb-6">
+            <h3 class="text-md font-medium text-gray-700 mb-4">Geographic Information</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- Geographic Group -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Geographic Group</label>
+                <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                     data-dojo-props="placeHolder:'e.g., Asia'" 
+                     data-dojo-attach-point="geographicGroupNode" 
+                     name="geographic_group"></div>
+              </div>
+
+              <!-- Isolation Country -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Isolation Country</label>
+                <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                     data-dojo-props="placeHolder:'e.g., China'" 
+                     data-dojo-attach-point="isolationCountryNode" 
+                     name="isolation_country"></div>
+              </div>
+
+              <!-- State/Province -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">State/Province</label>
+                <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                     data-dojo-props="placeHolder:'e.g., California'" 
+                     data-dojo-attach-point="stateProvinceNode" 
+                     name="state_province"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Date and Size Information Section -->
+          <div class="border-t border-gray-200 pt-6 mb-6">
+            <h3 class="text-md font-medium text-gray-700 mb-4">Date and Size Information</h3>
+            
+            <!-- Collection Year Range -->
+            <div class="mb-6">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Collection Year</label>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">From</label>
+                  <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                       data-dojo-props="placeHolder:'YYYY'" 
+                       data-dojo-attach-point="collectionYearFromNode" 
+                       name="collection_year_from"></div>
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">To</label>
+                  <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                       data-dojo-props="placeHolder:'YYYY'" 
+                       data-dojo-attach-point="collectionYearToNode" 
+                       name="collection_year_to"></div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Genome Length Range -->
+            <div class="mb-6">
+              <label class="block text-sm font-medium text-gray-700 mb-2">Genome Length</label>
+              <div class="grid grid-cols-2 gap-4">
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">From (bp)</label>
+                  <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                       data-dojo-props="placeHolder:'e.g., 1000'" 
+                       data-dojo-attach-point="genomeLengthFromNode" 
+                       name="genome_length_from"></div>
+                </div>
+                <div>
+                  <label class="block text-xs text-gray-500 mb-1">To (bp)</label>
+                  <div data-dojo-type="p3/widget/maage/MAAGETextBox" 
+                       data-dojo-props="placeHolder:'e.g., 50000'" 
+                       data-dojo-attach-point="genomeLengthToNode" 
+                       name="genome_length_to"></div>
+                </div>
+              </div>
+              
+              <!-- Complete Genome Checkbox -->
+              <div class="mt-4">
+                <div data-dojo-type="p3/widget/maage/MAAGECheckBox" 
+                     data-dojo-props="label:'Complete genomes only'" 
+                     data-dojo-attach-point="genomeCompleteNode" 
+                     data-dojo-attach-event="onChange:onGenomeCompleteChecked"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pathogen-Specific Criteria -->
+          <!-- Influenza A virus criteria -->
+          <div data-dojo-attach-point="influenzaCriteriaNode" style="display: none" class="border-t border-gray-200 pt-6 mb-6">
+            <h3 class="text-md font-medium text-gray-700 mb-4">Influenza A Virus Criteria</h3>
+            
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- Subtype -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Subtype</label>
+                <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                     data-dojo-props="placeHolder:'e.g., H7N9'" 
+                     data-dojo-attach-point="subtypeNode" 
+                     name="subtype"></div>
+              </div>
+
+              <!-- Segment -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Segment</label>
+                <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                     data-dojo-props="placeHolder:'e.g., 8'" 
+                     data-dojo-attach-point="segmentNode" 
+                     name="segment"></div>
+              </div>
+
+              <!-- Season -->
+              <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2">Season</label>
+                <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                     data-dojo-props="placeHolder:'e.g., 02-03'" 
+                     data-dojo-attach-point="seasonNode" 
+                     name="season"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SARS-CoV-2 criteria -->
+          <div data-dojo-attach-point="sarsCoV2CriteriaNode" style="display: none" class="border-t border-gray-200 pt-6 mb-6">
+            <h3 class="text-md font-medium text-gray-700 mb-4">SARS-CoV-2 Criteria</h3>
+            
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Lineage</label>
+              <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                   data-dojo-props="placeHolder:'e.g., BA.1'" 
+                   data-dojo-attach-point="lineageNode" 
+                   name="lineage"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- AMR Phenotype Criteria Section -->
+        <div class="bg-white border border-gray-200 rounded-lg p-6 mb-6">
+          <h2 class="text-lg font-heading font-medium text-gray-900 mb-6">AMR Phenotype Criteria</h2>
+          
+          <!-- Three-column layout for AMR fields -->
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <!-- Antibiotic -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Antibiotic</label>
+              <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                   data-dojo-props="placeHolder:'e.g., Amoxicillin'" 
+                   data-dojo-attach-point="antibioticNode" 
+                   name="antibiotic"></div>
+            </div>
+
+            <!-- Resistant Phenotype -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Resistant Phenotype</label>
+              <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                   data-dojo-props="placeHolder:'e.g., Resistant'" 
+                   data-dojo-attach-point="resistantPhenotypeNode" 
+                   name="resistant_phenotype"></div>
+            </div>
+
+            <!-- Evidence -->
+            <div>
+              <label class="block text-sm font-medium text-gray-700 mb-2">Evidence</label>
+              <div data-dojo-type="p3/widget/maage/MAAGEFilteringSelect" 
+                   data-dojo-props="placeHolder:'e.g., Laboratory Method'" 
+                   data-dojo-attach-point="evidenceNode" 
+                   name="evidence"></div>
+            </div>
+          </div>
+
+          <!-- Additional Criteria -->
+          <div class="border-t border-gray-200 pt-6">
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-md font-medium text-gray-700">Additional Criteria</h3>
+              <button type="button" 
+                      class="text-maage-secondary-600 hover:text-maage-secondary-700 flex items-center text-sm"
+                      data-dojo-attach-point="addCriteriaBtn">
+                <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                </svg>
+                Add Criterion
+              </button>
+            </div>
+            
+            <div class="bg-gray-50 border border-gray-200 rounded-md p-4 text-center text-gray-500 text-sm" 
+                 data-dojo-attach-point="noCriteriaMessage">
+              No additional criteria. Click "Add Criterion" to add more search parameters.
+            </div>
+            
+            <div data-dojo-attach-point="AdvancedSearchPanel" class="space-y-4"></div>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex space-x-4">
+          <button type="submit" 
+                  class="inline-flex items-center justify-center px-4 py-2 text-md font-medium rounded-md bg-maage-secondary-500 hover:bg-maage-secondary-600 text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-maage-secondary-500 transition-colors"
+                  data-dojo-attach-point="submitButton">
+            <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+            Search
+          </button>
+          <button type="reset" 
+                  class="inline-flex items-center justify-center px-4 py-2 text-md font-medium rounded-md bg-gray-200 hover:bg-gray-300 text-gray-900 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500 transition-colors"
+                  data-dojo-attach-point="resetButton">
+            Reset
+          </button>
+        </div>
+      </div>
+
+      <!-- Right Column - Tools & Resources (1/4 width) -->
+      <div class="lg:col-span-1">
+        <div class="bg-white border border-gray-200 rounded-lg p-6 sticky top-6">
+          <h3 class="text-lg font-heading font-medium text-gray-900 mb-4">Tools & Resources</h3>
+          
+          <div class="space-y-4">
+            <!-- AMR Overview -->
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 bg-maage-primary-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-maage-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v4"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-sm font-medium text-gray-900">Genome Browser</h4>
+                <p class="text-xs text-gray-600 mt-1">Visualize genomic features and annotations</p>
+              </div>
+            </div>
+
+            <!-- Comparative Genomics -->
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 bg-maage-tertiary-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-maage-tertiary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 17V7m0 10a2 2 0 01-2 2H5a2 2 0 01-2-2V7a2 2 0 012-2h2a2 2 0 012 2m0 10a2 2 0 002 2h2a2 2 0 002-2M9 7a2 2 0 012-2h2a2 2 0 012 2m0 10V7m0 10a2 2 0 002 2h2a2 2 0 002-2V7a2 2 0 00-2-2h-2a2 2 0 00-2 2"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-sm font-medium text-gray-900">Comparative Genomics</h4>
+                <p class="text-xs text-gray-600 mt-1">Compare genomes and analyze relationships</p>
+              </div>
+            </div>
+
+            <!-- Phylogenetic Analysis -->
+            <div class="flex items-start space-x-3">
+              <div class="w-8 h-8 bg-maage-quinary-100 rounded-lg flex items-center justify-center flex-shrink-0">
+                <svg class="w-4 h-4 text-maage-quinary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="text-sm font-medium text-gray-900">Phylogenetic Analysis</h4>
+                <p class="text-xs text-gray-600 mt-1">Evolutionary relationships and trees</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
