@@ -233,10 +233,10 @@ define([
 
     onSetState: function (attr, oldVal, state) {
       this.loading = true;
-      var fileCheck = this.state.pathname.match(/path=..+?(?=&|$)/);
-      var objPath = fileCheck[0].split('=')[1];
-      var typeCheck = this.state.pathname.match(/alignType=..+?(?=&|$)/);
-      if (typeCheck && typeCheck[0].split('=')[1].includes('dna')) {
+      var fileCheck = this.state.pathname.match(/path=([^&]+)/);
+      var objPath = decodeURIComponent(fileCheck[1]);
+      var typeCheck = this.state.pathname.match(/alignType=([^&]+)/);
+      if (typeCheck && decodeURIComponent(typeCheck[1]).includes('dna')) {
         this.alignType = 'dna';
       }
       WorkspaceManager.getObjects([objPath]).then(lang.hitch(this, function (objs) {

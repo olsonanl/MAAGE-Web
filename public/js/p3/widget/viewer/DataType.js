@@ -235,7 +235,7 @@ define([
       }
 
       var parts = state.pathname.split('/');
-      var dataType = parts[parts.length - 1];
+      var dataType = decodeURIComponent(parts[parts.length - 1]);
 
       if (!dataType) return;
 

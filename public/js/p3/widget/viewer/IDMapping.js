@@ -25,7 +25,8 @@ define([
       params.split('&').forEach(function (p) {
         var kv = p.split('=');
         if (kv[1]) {
-          state[kv[0]] = kv[1];
+          // Decode URL-encoded parameter values
+          state[decodeURIComponent(kv[0])] = decodeURIComponent(kv[1]);
         }
       });
       // console.log("onSetState: ", this.state);

@@ -109,8 +109,9 @@ define([
 
     onSetState: function (attr, oldState, state) {
       var parts = this.state.pathname.split('/');
-      this.set('feature_id', parts[parts.length - 1]);
-      state.feature_id = parts[parts.length - 1];
+      var feature_id = decodeURIComponent(parts[parts.length - 1]);
+      this.set('feature_id', feature_id);
+      state.feature_id = feature_id;
 
       if (state && state.feature_id && !state.feature) {
         if (oldState && oldState.feature_id) {

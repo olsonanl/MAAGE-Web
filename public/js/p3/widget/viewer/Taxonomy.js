@@ -160,7 +160,7 @@ define([
       var def = new Deferred();
       var parts = state.pathname.split('/');
 
-      var taxon_id_or_name = parts[parts.length - 1];
+      var taxon_id_or_name = decodeURIComponent(parts[parts.length - 1]);
       if (taxon_id_or_name == parseInt(taxon_id_or_name)) {
         def.resolve(parseInt(taxon_id_or_name));
       }

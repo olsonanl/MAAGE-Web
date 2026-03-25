@@ -244,8 +244,9 @@ define([
       }
 
       var parts = state.pathname.split('/');
-      this.set('genome_id', parts[parts.length - 1]);
-      state.genome_id = parts[parts.length - 1];
+      var genome_id = decodeURIComponent(parts[parts.length - 1]);
+      this.set('genome_id', genome_id);
+      state.genome_id = genome_id;
       state.genome_ids = [state.genome_id];
 
 

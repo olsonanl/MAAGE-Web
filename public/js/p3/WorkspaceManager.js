@@ -682,6 +682,8 @@ define([
       if (!path) {
         throw new Error('Invalid Path(s) to retrieve');
       }
+      // Note: paths should already be decoded by callers (e.g., WorkspaceBrowser._setPathAttr)
+      // Do not decode here as it would corrupt paths containing literal % characters
       return Deferred.when(this.api('Workspace.get', [{
         objects: [path],
         metadata_only: metadataOnly
@@ -993,6 +995,8 @@ define([
       if (!(paths instanceof Array)) {
         paths = [paths];
       }
+      // Note: paths should already be decoded by callers
+      // Do not decode here as it would corrupt paths containing literal % characters
       return Deferred.when(this.api('Workspace.get', [{
         objects: paths,
         metadata_only: metadataOnly
@@ -1060,6 +1064,8 @@ define([
     },
 
     getFolderContents: function (path, showHidden, recursive, filterPublic) {
+      // Note: paths should already be decoded by callers (e.g., WorkspaceBrowser._setPathAttr)
+      // Do not decode here as it would corrupt paths containing literal % characters
 
       var _self = this;
       return Deferred.when(
