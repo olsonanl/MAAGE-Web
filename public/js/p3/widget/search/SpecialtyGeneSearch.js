@@ -22,8 +22,8 @@ define([
 
   return declare([SearchBase], {
     templateString: template,
-    searchAppName: 'AMR & Virulence Gene Search',
-    pageTitle: 'AMR & Virulence Gene Search | MAAGE',
+    searchAppName: 'Specialty Gene Search',
+    pageTitle: 'Specialty Gene Search | MAAGE',
     dataKey: 'sp_gene',
     resultUrlBase: '/view/SpecialtyGeneList/?',
     resultUrlHash: '#view_tab=specialtyGenes&filter=false',
