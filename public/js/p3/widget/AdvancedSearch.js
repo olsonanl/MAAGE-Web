@@ -27,7 +27,7 @@ define([
     labelsByType: {
       genome: 'Genomes',
       genome_feature: 'Features',
-      sp_gene: 'AMR & Virulence Genes',
+      sp_gene: 'Specialty Genes',
       taxonomy: 'Taxa',
     },
 
