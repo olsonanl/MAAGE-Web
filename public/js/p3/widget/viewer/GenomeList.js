@@ -188,14 +188,14 @@ define([
 
       this.viewer.addChild(this.overview)
       this.viewer.addChild(this.genomes)
-      this.viewer.addChild(this.sequences);
       this.viewer.addChild(this.amr);
+      this.viewer.addChild(this.sequences);
       this.viewer.addChild(this.features);
       // this.viewer.addChild(this.proteins);
       this.viewer.addChild(this.specialtyGenes);
       // this.viewer.addChild(this.proteinFamilies);
-      this.viewer.addChild(this.pathways);
-      this.viewer.addChild(this.subsystems);
+      // this.viewer.addChild(this.pathways);
+      // this.viewer.addChild(this.subsystems);
       // this.viewer.addChild(this.experiments);
     }
   });

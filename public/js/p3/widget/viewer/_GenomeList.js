@@ -316,8 +316,8 @@ define([
       this.viewer.addChild(this.specialtyGenes);
       // this.viewer.addChild(this.proteinFeatures);
       // this.viewer.addChild(this.epitope);
-      this.viewer.addChild(this.pathways);
-      this.viewer.addChild(this.subsystems);
+      // this.viewer.addChild(this.pathways);
+      // this.viewer.addChild(this.subsystems);
       // this.viewer.addChild(this.experiments);
       // this.viewer.addChild(this.interactions);
       this.viewer.addChild(this.surveillance);

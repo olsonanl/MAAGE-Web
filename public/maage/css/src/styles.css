@@ -1738,7 +1738,8 @@ span#dijit_form_DropDownButton_0 > span.dijitReset.dijitInline.dijitArrowButtonI
 
 .PerspectiveHeader .PerspectiveTotalCount {
   color: var(--maage-secondary-700) !important;
-  white-space: nowrap;
+  flex-basis: 100%;
+  white-space: normal;
 }
 
 div.dijitTabInner.dijitTabContent.dijitTab.dijitTabChecked.dijitChecked {

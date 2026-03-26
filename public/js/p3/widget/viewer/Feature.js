@@ -170,6 +170,7 @@ define([
           this.changeToVirusContext();
         }
 	*/
+        this.resize();
       }));
 
       var content = [];
@@ -186,7 +187,7 @@ define([
         content.push(feature.product);
       }
 
-      this.totalCountNode.innerHTML = '<br/>' + content.map(function (d) {
+      this.totalCountNode.innerHTML = content.map(function (d) {
         return '<span><b>' + d + '</b></span>';
       }).join(' <span class="pipe">|</span> ');
     },
