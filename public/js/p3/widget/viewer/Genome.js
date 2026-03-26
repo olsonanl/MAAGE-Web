@@ -401,11 +401,11 @@ define([
       // this.viewer.addChild(this.phylogeny);
       this.viewer.addChild(this.browser);
       // this.viewer.addChild(this.circular);
-      // this.viewer.addChild(this.sequences);
+      this.viewer.addChild(this.sequences);
       this.viewer.addChild(this.features);
       // this.viewer.addChild(this.proteins);
       // this.viewer.addChild(this.structures);
-      // this.viewer.addChild(this.specialtyGenes);
+      this.viewer.addChild(this.specialtyGenes);
       // this.viewer.addChild(this.proteinFeatures);
       // this.viewer.addChild(this.proteinFamilies);
       // this.viewer.addChild(this.pathways);
