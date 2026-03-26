@@ -2,12 +2,12 @@ define([
   'dojo/_base/declare', 'dijit/layout/BorderContainer', 'dojo/on',
   'dojo/dom-class', 'dijit/layout/ContentPane', 'dojo/dom-construct',
   '../PageGrid', '../formatter', '../../WorkspaceManager', 'dojo/_base/lang',
-  'dojo/dom-attr', '../WorkspaceExplorerView', 'dijit/Dialog', '../../util/encodePath'
+  'dojo/dom-attr', '../WorkspaceExplorerView', 'dijit/Dialog'
 ], function (
   declare, BorderContainer, on,
   domClass, ContentPane, domConstruct,
   Grid, formatter, WorkspaceManager, lang,
-  domAttr, WorkspaceExplorerView, Dialog, encodePath
+  domAttr, WorkspaceExplorerView, Dialog
 ) {
   return declare([BorderContainer], {
     baseClass: 'ExperimentViewer',
@@ -149,7 +149,7 @@ define([
 
       this.inherited(arguments);
       this.viewHeader = new ContentPane({ content: 'Loading data from ' + this.data.name + ' job file.', region: 'top', style: 'width:90%;height:30%;' });
-      this.viewer = new WorkspaceExplorerView({ region: 'center', path: encodePath(this._hiddenPath) });
+      this.viewer = new WorkspaceExplorerView({ region: 'center', path: this._hiddenPath });
       this.addChild(this.viewHeader);
       this.addChild(this.viewer);
 
