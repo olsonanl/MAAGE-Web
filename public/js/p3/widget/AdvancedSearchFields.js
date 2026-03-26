@@ -301,7 +301,7 @@ define([], function () {
         field: 'isolation_comments', type: 'str', facet: false, facet_hidden: true, search: true
       },
       {
-        field: 'collection_date', type: 'date', facet: false, facet_hidden: true, search: true
+        field: 'collection_date_dr', label: 'collection_date', type: 'date', facet: false, facet_hidden: true, search: true
       },
       {
         field: 'collection_year', type: 'numeric', facet: true, facet_hidden: false, search: true
@@ -1010,7 +1010,7 @@ define([], function () {
         field: 'contact_email_address', type: 'str', facet: false, facet_hidden: true, search: true
       },
       {
-        field: 'collection_date', type: 'date', facet: false, facet_hidden: true, search: true
+        field: 'collection_date_dr', label: 'collection_date', type: 'date', facet: false, facet_hidden: true, search: true
       },
       {
         field: 'collection_year', type: 'str', facet: true, facet_hidden: false, search: true
@@ -1309,7 +1309,7 @@ define([], function () {
         field: 'collection_city', type: 'str', facet: true, facet_hidden: true, search: true
       },
       {
-        field: 'collection_date', type: 'date', facet: false, facet_hidden: true, search: true
+        field: 'collection_date_dr', label: 'collection_date', type: 'date', facet: false, facet_hidden: true, search: true
       },
       {
         field: 'collection_year', type: 'str', facet: true, facet_hidden: false, search: true
@@ -1401,7 +1401,7 @@ define([], function () {
         field: 'collection_year', type: 'str', facet: true, facet_hidden: false, search: true
       },
       {
-        field: 'collection_date', type: 'str', facet: false, facet_hidden: true, search: true
+        field: 'collection_date_dr', label: 'collection_date', type: 'date', facet: false, facet_hidden: true, search: true
       },
       {
         field: 'season', type: 'str', facet: true, facet_hidden: true, search: true
