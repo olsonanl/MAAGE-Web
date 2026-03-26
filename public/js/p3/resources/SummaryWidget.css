@@ -126,12 +126,22 @@
 }
 
 /* Genomic Features at genome overview */
+.patric .gfSummaryWidget.SummaryWidget .chartNode,
+.patric .gfSummaryWidget.SummaryWidget .tableNode {
+    height: auto !important;
+    min-height: 175px;
+}
 .patric .gfSummaryWidget.SummaryWidget .field-feature_type {
     width: 60%;
     text-align: left;
 }
 
 /* specialty genes at genome overview */
+.patric .spgSummaryWidget.SummaryWidget .chartNode,
+.patric .spgSummaryWidget.SummaryWidget .tableNode {
+    height: auto !important;
+    min-height: 175px;
+}
 .patric .spgSummaryWidget.SummaryWidget .field-source_x {
     width: 20%;
 }
@@ -163,7 +173,7 @@
 
 /* special properties summary widget at feature overview */
 .patric .spgSummaryWidget.SummaryWidget {
-    height: 250px;
+    height: auto;
 }
 
 /* feature comments summary widget at feature overview */
