@@ -1377,6 +1377,25 @@ span#dijit_form_DropDownButton_6_label {
   font-weight: 600;
 }
 
+#p3header-search .GlobalSearch,
+#p3header-search .GlobalSearch .dijitSelect,
+#p3header-search .GlobalSearch .dijitTextBox,
+#p3header-search .GlobalSearch .dijitInputField,
+#p3header-search .GlobalSearch .dijitPlaceHolder,
+#p3header-search .GlobalSearch input,
+#p3header-search .GlobalSearch select,
+#p3header-search .GlobalSearch .dijitSelectLabel,
+#mobile-searchbar .GlobalSearch,
+#mobile-searchbar .GlobalSearch .dijitSelect,
+#mobile-searchbar .GlobalSearch .dijitTextBox,
+#mobile-searchbar .GlobalSearch .dijitInputField,
+#mobile-searchbar .GlobalSearch .dijitPlaceHolder,
+#mobile-searchbar .GlobalSearch input,
+#mobile-searchbar .GlobalSearch select,
+#mobile-searchbar .GlobalSearch .dijitSelectLabel {
+  font-family: 'Poppins', sans-serif !important;
+}
+
 .gs-input input {
   border: none !important;
   outline: none !important;
