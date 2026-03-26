@@ -711,7 +711,7 @@
 
   #mobile-search-icon,
   #mobile-searchbar {
-    display: none;
+    display: none !important;
   }
 
   #p3header-search {
@@ -719,8 +719,8 @@
   }
 }
 
-/* Show #mobile-search-icon between 1204px and 1500px */
-@media (min-width: 1024px) and (max-width: 1500px) {
+/* Show #mobile-search-icon between 1024px and 1500px */
+@media (min-width: 1024px) and (max-width: 1614px) {
   #mobile-search-icon {
     display: block;
   }
@@ -730,10 +730,14 @@
   }
 }
 
-/* Hide #mobile-search-icon above 1500px */
+/* Hide #mobile-search-icon and mobile-searchbar above 1615px */
 @media (min-width: 1615px) {
   #mobile-search-icon {
-    display: none;
+    display: none !important;
+  }
+
+  #mobile-searchbar {
+    display: none !important;
   }
 
   #p3header-search {
