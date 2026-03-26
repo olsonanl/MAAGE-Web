@@ -114,6 +114,9 @@ NTUSER.INI
 /src/
 public/js/release/
 
+# MicrobeTrace (built from submodule)
+public/microbetrace/
+
 # testing & coverage
 coverage/
 jest.config.js

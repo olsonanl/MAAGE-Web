@@ -58,4 +58,89 @@
   .cgmlst-view-btn.active {
     @apply bg-white text-gray-900 shadow-sm;
   }
+
+  /* MicrobeTrace Viewer Styles */
+  .MicrobeTraceViewer {
+    @apply w-full h-full;
+  }
+
+  .MicrobeTraceViewer .dijitContentPane {
+    @apply p-0;
+  }
+
+  .MicrobeTraceViewer iframe {
+    @apply w-full h-full border-0;
+  }
+
+  .MicrobeTraceViewer .mt-header {
+    @apply flex justify-between items-center h-full;
+    @apply px-4 py-2;
+    @apply bg-gradient-to-b from-gray-50 to-gray-100;
+    @apply border-b border-gray-200;
+  }
+
+  .MicrobeTraceViewer .mt-header-info {
+    @apply flex items-center;
+  }
+
+  .MicrobeTraceViewer .mt-header-info i {
+    @apply mr-3 text-gray-600;
+  }
+
+  .MicrobeTraceViewer .mt-header-title {
+    @apply font-semibold text-gray-800;
+  }
+
+  .MicrobeTraceViewer .mt-header-subtitle {
+    @apply ml-3 text-gray-500;
+  }
+
+  .MicrobeTraceViewer .mt-header-actions {
+    @apply flex gap-3;
+  }
+
+  .MicrobeTraceViewer .mt-btn {
+    @apply px-3 py-1.5;
+    @apply text-sm font-medium;
+    @apply border rounded;
+    @apply cursor-pointer;
+    @apply transition-colors duration-150;
+  }
+
+  .MicrobeTraceViewer .mt-btn-primary {
+    @apply border-maage-secondary-500 bg-white text-maage-secondary-600;
+  }
+
+  .MicrobeTraceViewer .mt-btn-primary:hover {
+    @apply bg-maage-secondary-500 text-white;
+  }
+
+  .MicrobeTraceViewer .mt-btn-secondary {
+    @apply border-gray-400 bg-white text-gray-600;
+  }
+
+  .MicrobeTraceViewer .mt-btn-secondary:hover {
+    @apply bg-gray-500 text-white;
+  }
+
+  .MicrobeTraceViewer .mt-loading,
+  .MicrobeTraceViewer .mt-error {
+    @apply flex flex-col justify-center items-center h-full;
+  }
+
+  .MicrobeTraceViewer .mt-loading i {
+    @apply text-maage-secondary-500 mb-4;
+  }
+
+  .MicrobeTraceViewer .mt-loading span {
+    @apply text-gray-500 text-sm;
+  }
+
+  .MicrobeTraceViewer .mt-error i {
+    @apply text-red-500 mb-4;
+  }
+
+  .MicrobeTraceViewer .mt-error span {
+    @apply text-red-500 text-sm;
+  }
 }

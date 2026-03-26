@@ -20,7 +20,8 @@ define([
     viewableTypes: ['txt', 'html', 'json', 'csv', 'tsv', 'diffexp_experiment',
       'diffexp_expression', 'diffexp_mapping', 'diffexp_sample', 'pdf',
       'diffexp_input_data', 'diffexp_input_metadata', 'svg', 'gif', 'png', 'jpg',
-      'aligned_dna_fasta', 'aligned_protein_fasta', 'feature_dna_fasta', 'feature_protein_fasta', 'pdb'],
+      'aligned_dna_fasta', 'aligned_protein_fasta', 'feature_dna_fasta', 'feature_protein_fasta', 'pdb',
+      'microbetrace_session'],
 
     knownUploadTypes: {
       unspecified: {
@@ -192,6 +193,11 @@ define([
         label: 'XML',
         formats: ['.xml'],
         description: 'An xml file.'
+      },
+      microbetrace_session: {
+        label: 'MicrobeTrace Session',
+        formats: ['.microbetrace'],
+        description: 'A MicrobeTrace molecular epidemiology session file.'
       }
     },
 
@@ -234,7 +240,8 @@ define([
       wig: { label: 'wig', value: 'wig' },
       xls: { label: 'xls', value: 'xls' },
       xlsx: { label: 'xlsx', value: 'xlsx' },
-      xml: { label: 'xml', value: 'xml' }
+      xml: { label: 'xml', value: 'xml' },
+      microbetrace_session: { label: 'microbetrace_session', value: 'microbetrace_session' }
     },
 
     getDefaultFolder: function (type) {

@@ -433,6 +433,9 @@ define(
             return '<img src="/public/js/p3/resources/images/genomegroup.svg" style="width:16px;height:16px;"  class="fa fa-2x" title="Genome Group" />';
           case 'job_result_DifferentialExpression':
             return '<i class="fa icon-lab fa-1x" title="DiffExp" />';
+          case 'microbetrace':
+          case 'microbetrace_session':
+            return '<i class="fa icon-network fa-1x" title="MicrobeTrace Session" />';
           default:
             return '<i class="fa icon-file-text-o fa-1x" title="' + (val || 'Unspecified Document Type') + '" />';
         }

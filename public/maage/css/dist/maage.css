@@ -630,6 +630,8 @@ video {
   box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
 }
 
+/* MicrobeTrace Viewer Styles */
+
 .sr-only {
   position: absolute;
   width: 1px;

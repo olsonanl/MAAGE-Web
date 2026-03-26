@@ -25,6 +25,7 @@ var uploads = require('./routes/uploads');
 var jobs = require('./routes/jobs');
 var systemStatus = require('./routes/systemStatus');
 var help = require('./routes/help');
+var microbetrace = require('./routes/microbetrace');
 var app = express();
 var httpProxy = require('http-proxy');
 var apiProxy = httpProxy.createProxyServer();
@@ -223,6 +224,7 @@ app.use('/app', apps);
 app.use('/job', jobs);
 app.use('/status', systemStatus);  // system status page
 app.use('/help', help);
+app.use('/microbetrace', microbetrace);
 app.use('/uploads', uploads);
 app.use('/users', users);
 

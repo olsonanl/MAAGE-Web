@@ -42,7 +42,8 @@ define([
       'experiment', 'unspecified', 'contigs', 'reads', 'model', 'txt', 'html',
       'pdf', 'string', 'json', 'csv', 'diffexp_experiment',
       'diffexp_expression', 'diffexp_mapping', 'diffexp_sample',
-      'diffexp_input_data', 'diffexp_input_metadata', 'svg', 'gif', 'png', 'jpg', 'nwk', 'phyloxml'],
+      'diffexp_input_data', 'diffexp_input_metadata', 'svg', 'gif', 'png', 'jpg', 'nwk', 'phyloxml',
+      'microbetrace', 'microbetrace_session'],
     design: 'sidebar',
     splitter: false,
     docsServiceURL: window.App.docsServiceURL,
@@ -1217,6 +1218,36 @@ define([
         Topic.publish('/navigate', { href: '/view/PhylogeneticTree2/?&labelSearch=' + labelSearch + '&idType=' + idType + '&labelType=' + labelType + '&wsTreeFile=' + encodePath(path[0]) + '&fileType=' + fileType });
       }, false);
 
+      // MicrobeTrace viewer action for compatible file types
+      this.actionPanel.addAction('ViewMicrobeTrace', 'fa icon-network fa-2x', {
+        label: 'MicrobeTrace',
+        multiple: false,
+        validTypes: ['fasta', 'csv', 'tsv', 'nwk', 'newick', 'microbetrace', 'microbetrace_session'],
+        tooltip: 'Open in MicrobeTrace molecular epidemiology tool'
+      }, function (selection, container) {
+        var obj = selection[0];
+        console.log('[MicrobeTrace] Selection obj:', obj);
+        console.log('[MicrobeTrace] obj.path:', obj.path);
+        console.log('[MicrobeTrace] obj.name:', obj.name);
+        // Build the filepath - path should be the directory, name is the filename
+        // But check if path already ends with the filename
+        var path = obj.path || '';
+        var name = obj.name || '';
+        var filepath;
+        if (path.endsWith(name + '/') || path.endsWith(name)) {
+          // Path already contains the filename
+          filepath = path.replace(/\/$/, ''); // Remove trailing slash if present
+        } else {
+          // Need to append the filename
+          if (!path.endsWith('/')) {
+            path = path + '/';
+          }
+          filepath = path + name;
+        }
+        console.log('[MicrobeTrace] Navigating to filepath:', filepath);
+        Topic.publish('/navigate', { href: '/view/MicrobeTrace' + encodePath(filepath) });
+      }, false);
+
       this.browserHeader.addAction('ViewNwkXml', 'fa icon-eye fa-2x', {
         label: 'VIEW',
         multiple: false,
@@ -2305,6 +2336,12 @@ define([
             var labelType = 'genome_name';
             var filepath = obj.path + obj.name;
             Topic.publish('/navigate', { href: '/view/PhylogeneticTree2/?&labelSearch=' + labelSearch + '&idType=' + idType + '&labelType=' + labelType + '&wsTreeFile=' + encodePath(filepath) + '&fileType=' + obj.type });
+            break;
+
+          case 'microbetrace':
+          case 'microbetrace_session':
+            panelCtor = window.App.getConstructor('p3/widget/viewer/MicrobeTrace');
+            params.data = obj;
             break;
 
           default:

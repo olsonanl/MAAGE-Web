@@ -69,3 +69,6 @@
 	path = public/js/archaeopteryx/archaeopteryx-js
 	url = https://github.com/cmzmasek/archaeopteryx-js.git
 	branch = master
+[submodule "microbetrace-src"]
+	path = microbetrace-src
+	url = https://github.com/CDCgov/MicrobeTrace.git

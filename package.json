@@ -5,6 +5,7 @@
   "scripts": {
     "start": "node ./bin/p3-web",
     "postinstall": "./post_install.sh",
+    "build:microbetrace": "mkdir -p public/microbetrace && cd microbetrace-src && npm install --legacy-peer-deps && npm run build -- --configuration production --base-href /microbetrace/ && cp -r dist/MicrobeTrace/* ../public/microbetrace/",
     "tw:build": "npx tailwindcss -i ./public/maage/css/src/tailwind.css -o ./public/maage/css/dist/maage.css",
     "tw:build:min": "npx tailwindcss -i ./public/maage/css/src/tailwind.css -o ./public/maage/css/dist/maage.min.css --minify",
     "tw:watch": "npx tailwindcss -i ./public/maage/css/src/tailwind.css -o ./public/maage/css/dist/maage.css --watch"
