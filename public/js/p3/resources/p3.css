@@ -33,3 +33,9 @@
 @import url("../../cytoscape-context-menus/cytoscape-context-menus.css");
 @import url("./archaeopteryx/jquery-ui.css");
 @import url("end.css");
+
+/* Override dijit Calendar disabled-date strikethrough — just gray out, no line-through */
+.claro .dijitCalendarDisabledDate .dijitCalendarDateLabel,
+.dijitCalendarDisabledDate {
+  text-decoration: none !important;
+}
