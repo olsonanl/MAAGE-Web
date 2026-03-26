@@ -24,7 +24,7 @@ define([
     genome: null,
     state: null,
     context: 'bacteria',
-    bacteriSummaryWidgets: ['apSummaryWidget', 'gfSummaryWidget', 'pfSummaryWidget', 'spgSummaryWidget'],
+    bacteriSummaryWidgets: ['apSummaryWidget', 'gfSummaryWidget', 'spgSummaryWidget'],
     virusSummaryWidgets: ['gfSummaryWidget'],
     docsServiceURL: window.App.docsServiceURL,
     tutorialLink: 'quick_references/organisms_genome/overview.html',
@@ -53,11 +53,9 @@ define([
       }
     },
     changeToVirusContext: function () {
-      domClass.add(this.pfSummaryWidget.domNode.parentNode, 'hidden');
       domClass.add(this.spgSummaryWidget.domNode.parentNode, 'hidden');
     },
     changeToBacteriaContext: function () {
-      domClass.remove(this.pfSummaryWidget.domNode.parentNode, 'hidden');
       domClass.remove(this.spgSummaryWidget.domNode.parentNode, 'hidden');
     },
     _setGenomeAttr: function (genome) {

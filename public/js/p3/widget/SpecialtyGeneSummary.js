@@ -19,7 +19,12 @@ define([
     dataModel: 'sp_gene',
     query: '',
     view: 'table',
-    baseQuery: '&limit(1)&facet((field,property_source),(mincount,1))&json(nl,map)',
+    gridOptions: {
+      className: 'dgrid-autoheight',
+      style: 'border: 0px;'
+    },
+    baseQuery: '&in(property,(%22Antibiotic%20Resistance%22,%22Virulence%20Factor%22))&limit(1)&facet((field,property_source),(mincount,1))&json(nl,map)',
+    allowedCategories: ['Antibiotic Resistance', 'Virulence Factor'],
     columns: [
       { label: ' ', field: 'category' },
       { label: 'Source', field: 'source_x' },
@@ -41,12 +46,17 @@ define([
       var d = res.facet_counts.facet_fields.property_source; // now key-value pair
 
       var data = this._tableData = [];
+      var allowedCategories = this.allowedCategories;
       Object.keys(d).forEach(function (key, idx) {
-        chartLabels.push({ text: key, value: idx + 1 });
         var val = key.split(': ');
         var cat = val[0];
         var source = val[1];
 
+        if (allowedCategories && allowedCategories.indexOf(cat) === -1) {
+          return;
+        }
+
+        chartLabels.push({ text: key, value: chartLabels.length + 1 });
         data.push({
           category: cat, source_x: source, y: d[key], property_source: key
         });

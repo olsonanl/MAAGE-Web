@@ -16,6 +16,10 @@ define([
     dataModel: 'genome_feature',
     query: '',
     view: 'table',
+    gridOptions: {
+      className: 'dgrid-autoheight',
+      style: 'border: 0px;'
+    },
     baseQuery: '&limit(1)&in(annotation,(PATRIC,RefSeq))&ne(feature_type,source)&facet((pivot,(annotation,feature_type)),(mincount,0))',
     columns: [{
       label: ' ',
