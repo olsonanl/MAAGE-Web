@@ -67,12 +67,14 @@ define([
         innerHTML: this.perspectiveLabel
       }, headerContent);
 
-      this.queryNode = domConstruct.create('span', { 'class': 'PerspectiveQuery' }, headerContent);
+      var queryRow = domConstruct.create('div', { 'class': 'PerspectiveQueryRow' }, headerContent);
+
+      this.queryNode = domConstruct.create('span', { 'class': 'PerspectiveQuery' }, queryRow);
 
       this.totalCountNode = domConstruct.create('span', {
         'class': 'PerspectiveTotalCount',
         innerHTML: '( loading... )'
-      }, headerContent);
+      }, queryRow);
 
       this.viewer = new TabContainer({
         region: 'center'

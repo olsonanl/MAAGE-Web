@@ -358,7 +358,7 @@ define([
       }
 
       // Build breadcrumb using safe DOM construction to prevent XSS
-      var container = domConstruct.create('div');
+      var container = domConstruct.create('span');
 
       visibleIndexes.forEach(function (idx, i) {
         if (i > 0) {
