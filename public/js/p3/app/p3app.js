@@ -626,10 +626,14 @@ define([
       if (Aauth && Aauth.roles) {
         if (Aauth.roles.includes('admin')) {
           sbLink[0].style.display = 'block';
-          var loginBtn = document.querySelector('.login-btn');
-          if (loginBtn) {
-            loginBtn.classList.remove('icon-user');
-            loginBtn.classList.add('icon-superpowers', 'warning');
+          // Swap the user icon to a shield icon to indicate super user mode
+          var profileIcon = document.getElementById('user-profile-icon');
+          if (profileIcon) {
+            profileIcon.setAttribute('data-lucide', 'user-star');
+            profileIcon.style.color = '#548fa6';
+            if (typeof lucide !== 'undefined') {
+              lucide.createIcons();
+            }
           }
         } else {
           sbLink[0].style.display = 'none';
@@ -649,6 +653,15 @@ define([
       localStorage.removeItem('Atokenstring');
       localStorage.removeItem('AuserProfile');
       localStorage.removeItem('Auserid');
+      // Restore the user icon back from shield to normal user
+      var profileIcon = document.getElementById('user-profile-icon');
+      if (profileIcon) {
+        profileIcon.setAttribute('data-lucide', 'user');
+        profileIcon.style.color = '';
+        if (typeof lucide !== 'undefined') {
+          lucide.createIcons();
+        }
+      }
       window.App.authorizationToken = localStorage.getItem('tokenstring');
       window.App.user = JSON.parse(localStorage.getItem('userProfile'));
       window.location.href = '/';
