@@ -607,25 +607,26 @@ define([
       }
     },
     checkSU: function () {
-      var suLink = document.getElementsByClassName('sulogin');
-      var sbLink = document.getElementsByClassName('suSwitchBack');
+      var suLoginItem = document.getElementById('su-login-item');
+      var suSwitchBackItem = document.getElementById('su-switchback-item');
       var auth = localStorage.getItem('auth');
       var Aauth = localStorage.getItem('Aauth');
       auth = JSON.parse(auth);
       Aauth = JSON.parse(Aauth);
       if (auth && auth.roles) {
         if (auth.roles.includes('admin')) {
-          suLink[0].style.display = 'block';
+          suLoginItem.style.display = 'block';
         } else {
-          suLink[0].style.display = 'none';
+          suLoginItem.style.display = 'none';
         }
       } else {
-        suLink[0].style.display = 'none';
+        suLoginItem.style.display = 'none';
       }
       // condition for suSwitchBack button
       if (Aauth && Aauth.roles) {
         if (Aauth.roles.includes('admin')) {
-          sbLink[0].style.display = 'block';
+          suSwitchBackItem.style.display = 'block';
+          suLoginItem.style.display = 'none';
           // Swap the user icon to a shield icon to indicate super user mode
           var profileIcon = document.getElementById('user-profile-icon');
           if (profileIcon) {
@@ -636,10 +637,10 @@ define([
             }
           }
         } else {
-          sbLink[0].style.display = 'none';
+          suSwitchBackItem.style.display = 'none';
         }
       } else {
-        sbLink[0].style.display = 'none';
+        suSwitchBackItem.style.display = 'none';
       }
     },
     suSwitchBack: function () {
