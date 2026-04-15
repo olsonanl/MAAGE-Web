@@ -120,6 +120,12 @@ define([
       });
 
       on(window, 'message', function (evt) {
+        // Security: Only accept postMessages from same origin to prevent XSS
+        // via malicious cross-origin messages (TIKI-W094-1)
+        if (evt.origin !== window.location.origin) {
+          return;
+        }
+
         var msg = evt.data;
         // console.log("window.message: ", msg);
         /* istanbul ignore else */
@@ -280,14 +286,13 @@ define([
       });
       /* istanbul ignore next */
       on(window, 'message', function (msg) {
-        // Ignore anything not from this origin or known sources
-        if (
-          !msg ||
-          !msg.data ||
-          msg.origin === "https://syndication.twitter.com" || // legacy
-          typeof msg.data !== 'string' ||
-          !msg.data.trim().startsWith('{') // quick sniff test
-        ) {
+        // Security: Only accept postMessages from same origin (TIKI-W094-1)
+        if (!msg || !msg.data || msg.origin !== window.location.origin) {
+          return;
+        }
+
+        // Additional validation for string JSON messages
+        if (typeof msg.data !== 'string' || !msg.data.trim().startsWith('{')) {
           return;
         }
 
@@ -297,8 +302,7 @@ define([
             Topic.publish(parsed.topic, parsed.payload);
           }
         } catch (err) {
-          // Comment this out or add a debug toggle if you're sick of the noise
-          // console.debug("Ignored window message error: ", err);
+          // Silently ignore parse errors from non-JSON messages
         }
       }, '*');
 
