@@ -213,6 +213,51 @@ All MicrobeTrace display settings are in `public/maage/config/microbetrace-defau
 - `default-distance-metric` — "snps" or "tn93"
 - `node-color-variable` — color-by field (e.g., "cluster")
 
+#### Metadata column names are PascalCase
+
+Any style setting that names a **metadata** column must use the PascalCase form.
+Both result-generating modules pascal-case every column when writing
+`metadata.tsv` (`bvbrc_CoreGenomeMLST/service-scripts/core-genome-mlst-utils.py`
+and `bvbrc_WholeGenomeSNPAnalysis/service-scripts/whole_genome_snp_utils.py`,
+identical `to_pascal_case` implementations):
+
+| API field | metadata.tsv column |
+|---|---|
+| `genome_id` | `GenomeId` |
+| `genome_name` | `GenomeName` |
+| `isolation_source` | `IsolationSource` |
+| `state_province` | `StateProvince` |
+
+Use `GenomeName` for labels (readable organism names); `GenomeId` is the numeric
+id (e.g. `28901.36220`). Not every value in the style is a metadata column —
+`_id`, `id`, and `cluster` are MicrobeTrace built-ins and must stay lowercase.
+
+**A style naming a nonexistent column fails silently.** The tree builds its
+label dropdown from the columns actually present in the loaded data, so a
+missing field leaves the select holding a dangling value and renders no labels
+at all — no error, no fallback. If labels are blank but appear as soon as you
+pick a field in the settings panel, the style is naming a column that no longer
+exists.
+
+Caveat: wgSNP drops any column present in under 70% of rows (`genome_id` is
+always kept), so a sparse dataset can produce the same blank-label symptom even
+with a correct style.
+
+#### Updating the style file
+
+Export it from MicrobeTrace rather than hand-editing: configure the display in
+the running app, then File → Save with file type `style`, and copy the result
+over `public/maage/config/microbetrace-default-style.json` (the path is
+hardcoded in `WorkspaceBrowser.js`). The file is a verbatim dump of
+MicrobeTrace's `session.style`.
+
+No rebuild is needed — it is a static asset fetched at runtime, not bundled.
+
+Review the diff before committing: the export captures the entire session,
+including dataset-specific color/symbol tables and field selections from
+whatever data was loaded. Check the key settings listed above rather than
+trusting the export wholesale.
+
 ### Job Result Viewers
 
 - **cgMLST**: Locates `.tre` tree, `cgMLST_distance.report`, `metadata.tsv`
