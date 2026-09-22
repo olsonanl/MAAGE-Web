@@ -284,3 +284,19 @@ article URLs (the authenticated `HMapi.php` would work if a key is obtained).
   with the summary hidden until results arrive.
 - **XSS**: all card content is rendered with `domConstruct` + `textContent`;
   links are only rendered as `<a>` when the URL passes an `^https?://` check.
+
+## Workspace Object Selector
+
+`public/js/p3/widget/WorkspaceObjectSelector.js` — the "Choose or Upload a Workspace Object" dialog used by apps and viewers.
+
+### Path prefix and UI behavior
+
+The `path` property controls which workspace is shown. The leading path segment determines what UI controls are displayed:
+
+- **`/public/...`** — hides the Upload, Create Folder, and Create Workspace buttons. Use this for read-only reference workspaces (e.g. the MAAGE Workshop shortcut).
+- **`/<user@domain>/...`** (depth ≥ 3) — shows Upload and Create Folder. Use for user-writable locations.
+- **`/<user@domain>`** (depth < 3) — shows Create Workspace only.
+
+### MAAGE Workshop shortcut
+
+The dropdown shortcut "MAAGE Workshop" targets `/public/maage@bvbrc/MAAGE Workshop`. The `/public` prefix is required — without it the selector shows Upload/Create Folder buttons even though the workspace service will reject writes from non-owners.
